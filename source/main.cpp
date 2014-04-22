@@ -22,10 +22,10 @@ const char* fragment_shader =
 
 int main( int argc, char ** argv ) {
 	xiGLContext_t * const context = GLContext_Init( GLContext_Alloc() );
-	//GLContext_SetGLVersion( 3, 0 );
+	GLContext_SetGLVersion( 3, 0 );
 			
 	if ( context ) {
-		GLContext_OpenWindow( context, 800, 600 );
+		GLContext_OpenWindowWithAA( context, 800, 600, 8 );
 		//GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
 
 		GLuint vs = glCreateShader (GL_VERTEX_SHADER);
@@ -59,7 +59,7 @@ int main( int argc, char ** argv ) {
 		glBindBuffer (GL_ARRAY_BUFFER, vbo);
 		glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		
-		while ( GLContext_PollEvents( context ) ) {
+		while ( GLContext_Run( context ) ) {
 
 			// wipe the drawing surface clear
 			glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -68,7 +68,7 @@ int main( int argc, char ** argv ) {
 			glDrawArrays( GL_TRIANGLES, 0, 3 );
 
 			GLContext_SwapWindow( context );
-
+			GLContext_DrainEvents();
 		}
 
 		GLContext_Release( context );

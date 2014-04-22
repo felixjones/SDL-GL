@@ -44,6 +44,7 @@ typedef struct xiGLContext_s {
 		int		width;
 		int		height;
 		char	name[WINDOW_NAME_LEN];
+		int		willClose;
 	} window;
 
 	struct memory_s {
@@ -56,6 +57,7 @@ typedef struct xiGLContext_s {
 const char *	GLContext_GetStatus( const int status );
 int				GLContext_SetGLVersion( const int versionMajor, const int versionMinor );
 int				GLContext_SetVSync( const int options );
+void			GLContext_DrainEvents();
 
 xiGLContext_t *	GLContext_Init( xiGLContext_t * const self );
 int				GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, const int height, const int samples );
@@ -63,7 +65,7 @@ int				GLContext_OpenWindow( xiGLContext_t * const self, const int width, const 
 void			GLContext_SetWindowName( xiGLContext_t * const self, const char * const name );
 void			GLContext_SwapWindow( xiGLContext_t * const self );
 void			GLContext_Terminate( xiGLContext_t * const self );
-int				GLContext_PollEvents( xiGLContext_t * const self );
+int				GLContext_Run( xiGLContext_t * const self );
 
 xiGLContext_t *	GLContext_Alloc();
 void			GLContext_Dealloc( xiGLContext_t * const self );

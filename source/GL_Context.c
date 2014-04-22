@@ -39,6 +39,8 @@ enum statusGLContext_e {
 static int sdlReferences = 0;
 static int glewInitialised = 0;
 
+int	GLContext_OnClose( xiGLContext_t * const self, SDL_Event * const sdlEvent );
+
 /*
 ====================
 GLContext_GetStatus
@@ -111,6 +113,37 @@ int GLContext_SetVSync( const int options ) {
 
 /*
 ====================
+GLContext_DrainEvents
+
+	Drains the SDL event queue
+====================
+*/
+void GLContext_DrainEvents() {
+	SDL_Event sdlEvent;
+
+	while ( SDL_PollEvent( &sdlEvent ) ) {
+	}
+}
+
+/*
+====================
+GLContext_OnClose
+
+	Called when the close event is added to the queue
+====================
+*/
+int GLContext_OnClose( xiGLContext_t * const self, SDL_Event * const sdlEvent ) {
+	if ( self->status == STATUS_OKAY && sdlEvent->type == SDL_WINDOWEVENT && sdlEvent->window.event == SDL_WINDOWEVENT_CLOSE ) {
+		self->window.willClose = 1;
+
+		return 0;
+	}
+
+	return 1;
+}
+
+/*
+====================
 GLContext_Init
 
 	Initialises a context structure
@@ -126,6 +159,7 @@ xiGLContext_t *	GLContext_Init( xiGLContext_t * const self ) {
 	self->nativeContext = 0;
 	self->window.width = 0;
 	self->window.height = 0;
+	self->window.willClose = 0;
 	memset( &self->window.name[0], 0, sizeof( char ) * WINDOW_NAME_LEN );
 	
 	if ( !sdlReferences ) {
@@ -135,7 +169,9 @@ xiGLContext_t *	GLContext_Init( xiGLContext_t * const self ) {
 		}
 	}
 	sdlReferences++;
-	
+		
+	SDL_SetEventFilter( ( SDL_EventFilter )&GLContext_OnClose, self );
+
 	return self;
 }
 
@@ -283,26 +319,17 @@ void GLContext_SwapWindow( xiGLContext_t * const self ) {
 
 /*
 ====================
-GLContext_PollEvents
+GLContext_Run
 
-	Handles the event system via SDL
+	Returns 1 if the context is running
 ====================
 */
-int GLContext_PollEvents( xiGLContext_t * const self ) {
-	SDL_Event sdlEvent;
-	int pollState = 1;
-
-	if ( self->status != STATUS_OKAY ) {
+int GLContext_Run( xiGLContext_t * const self ) {
+	if ( self->window.willClose ) {
 		return 0;
 	}
-	
-	while ( SDL_PollEvent( &sdlEvent ) ) {
-		if ( sdlEvent.type == SDL_WINDOWEVENT && sdlEvent.window.event == SDL_WINDOWEVENT_CLOSE ) {
-			pollState = 0;
-		}
-	}
 
-	return pollState;
+	return 1;
 }
 
 /*
@@ -314,6 +341,8 @@ GLContext_Terminate
 */
 void GLContext_Terminate( xiGLContext_t * const self ) {
 	if ( self->status == STATUS_OKAY ) {
+		self->status = STATUS_TERMINATED;
+
 		SDL_GL_DeleteContext( self->nativeContext );
 		SDL_DestroyWindow( ( SDL_Window * )self->window.handle );
 	}
@@ -322,8 +351,6 @@ void GLContext_Terminate( xiGLContext_t * const self ) {
 	if ( !sdlReferences ) {
 		SDL_Quit();
 	}
-
-	self->status = STATUS_TERMINATED;
 }
 
 /*

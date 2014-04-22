@@ -9,12 +9,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\source\GL_Context.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\main.c">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="os.h">
+    <ClInclude Include="..\include\os.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GL_Context.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

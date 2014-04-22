@@ -7,6 +7,7 @@ extern "C" {
 
 #define GLEW_STATIC
 #include <GL/glew.h>
+#include <stdint.h>
 #include "os.h"
 
 #if defined( __WIN_API__ ) && defined( __RELEASE__ )
@@ -38,6 +39,7 @@ typedef struct xiGLContext_s {
 
 	void *	nativeContext;
 	int		status;
+	float	deltaTime;
 
 	struct window_s {
 		void *	handle;
@@ -46,6 +48,11 @@ typedef struct xiGLContext_s {
 		char	name[WINDOW_NAME_LEN];
 		int		willClose;
 	} window;
+
+	struct timer_s {
+		uint64_t	time;
+		uint64_t	last;
+	} timer;
 
 	struct memory_s {
 		int	references;
@@ -62,6 +69,8 @@ void			GLContext_DrainEvents();
 xiGLContext_t *	GLContext_Init( xiGLContext_t * const self );
 int				GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, const int height, const int samples );
 int				GLContext_OpenWindow( xiGLContext_t * const self, const int width, const int height );
+int				GLContext_OpenFullScreenWithAA( xiGLContext_t * const self, const int width, const int height, const int samples );
+int				GLContext_OpenFullScreen( xiGLContext_t * const self, const int width, const int height );
 void			GLContext_SetWindowName( xiGLContext_t * const self, const char * const name );
 void			GLContext_SwapWindow( xiGLContext_t * const self );
 void			GLContext_Terminate( xiGLContext_t * const self );

@@ -36,10 +36,76 @@ enum statusGLContext_e {
 	STATUS_ERROR_GLEW_INIT
 };
 
-static int sdlReferences = 0;
-static int glewInitialised = 0;
+static int				sdlReferences = 0;
+static int				glewInitialised = 0;
+static xiGLContext_t **	windowList = 0;
+static size_t			windowListLen = 0;
+static int				windowListRef = 0;
 
-int	GLContext_OnClose( xiGLContext_t * const self, SDL_Event * const sdlEvent );
+static int	GLContext_OnClose( void * udat, SDL_Event * const sdlEvent );
+static int	GLContext_OpenWindowWithFlags( xiGLContext_t * const self, const int width, const int height, const int flags );
+static void	WindowList_PushWindow( xiGLContext_t * const window );
+static void	WindowList_NullWindow( xiGLContext_t * const window );
+static void	WindowList_DropReference();
+
+/*
+====================
+WindowList_PushWindow
+
+	Adds a window to the window list
+====================
+*/
+void WindowList_PushWindow( xiGLContext_t * const window ) {
+	const size_t biggerWindowListLen = windowListLen + 1;
+	xiGLContext_t ** const biggerWindowList = ( xiGLContext_t ** )realloc( windowList, sizeof( *biggerWindowList ) * biggerWindowListLen );
+
+	if ( biggerWindowList ) {
+		biggerWindowList[windowListLen] = window;
+
+		windowList = biggerWindowList;
+		windowListLen = biggerWindowListLen;
+
+		windowListRef++;
+	}
+}
+
+/*
+====================
+WindowList_NullWindow
+
+	Finds a given window in the window list
+	Nullifies the pointer
+====================
+*/
+void WindowList_NullWindow( xiGLContext_t * const window ) {
+	size_t ii = windowListLen - 1;
+
+	do {
+		if ( windowList[ii] == window ) {
+			windowList[ii] = 0;
+			return;
+		}
+	} while ( ii-- );
+}
+
+/*
+====================
+WindowList_DropReference
+
+	Drops a reference on the window list
+	This will clean up the memory used by window list
+====================
+*/
+void WindowList_DropReference() {
+	windowListRef--;
+
+	if ( !windowListRef ) {
+		free( windowList );
+
+		windowList = 0;
+		windowListLen = 0;
+	}
+}
 
 /*
 ====================
@@ -132,11 +198,16 @@ GLContext_OnClose
 	Called when the close event is added to the queue
 ====================
 */
-int GLContext_OnClose( xiGLContext_t * const self, SDL_Event * const sdlEvent ) {
-	if ( self->status == STATUS_OKAY && sdlEvent->type == SDL_WINDOWEVENT && sdlEvent->window.event == SDL_WINDOWEVENT_CLOSE ) {
-		self->window.willClose = 1;
-
-		return 0;
+int GLContext_OnClose( void * udat, SDL_Event * const sdlEvent ) {
+	if ( sdlEvent->type == SDL_WINDOWEVENT && sdlEvent->window.event == SDL_WINDOWEVENT_CLOSE && windowListLen ) {
+		size_t ii = windowListLen - 1;
+		
+		do {
+			if ( windowList[ii] && sdlEvent->window.windowID == SDL_GetWindowID( ( SDL_Window * )windowList[ii]->window.handle ) ) {
+				windowList[ii]->window.willClose = 1;
+				return 0;
+			}
+		} while ( ii-- );
 	}
 
 	return 1;
@@ -160,6 +231,9 @@ xiGLContext_t *	GLContext_Init( xiGLContext_t * const self ) {
 	self->window.width = 0;
 	self->window.height = 0;
 	self->window.willClose = 0;
+	self->deltaTime = 0.0f;
+	self->timer.time = SDL_GetTicks();
+	self->timer.last = self->timer.time;
 	memset( &self->window.name[0], 0, sizeof( char ) * WINDOW_NAME_LEN );
 	
 	if ( !sdlReferences ) {
@@ -167,10 +241,12 @@ xiGLContext_t *	GLContext_Init( xiGLContext_t * const self ) {
 			self->status = STATUS_ERROR_SDL_INIT;
 			return NULL_PTR;
 		}
+
+		SDL_SetEventFilter( ( SDL_EventFilter )&GLContext_OnClose, 0 );
 	}
 	sdlReferences++;
-		
-	SDL_SetEventFilter( ( SDL_EventFilter )&GLContext_OnClose, self );
+	
+	WindowList_PushWindow( self );
 
 	return self;
 }
@@ -208,17 +284,17 @@ int GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, con
 
 	}
 	
-	return GLContext_OpenWindow( self, width, height );
+	return GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
 }
 
 /*
 ====================
-GLContext_OpenWindow
+GLContext_CreateWindowFlags
 
-	Sets the size of the context window
+	Creates a window with SDL flags
 ====================
 */
-int GLContext_OpenWindow( xiGLContext_t * const self, const int width, const int height ) {
+int GLContext_OpenWindowWithFlags( xiGLContext_t * const self, const int width, const int height, const int flags ) {
 	if ( self->status != STATUS_OKAY ) {
 		return 0;
 	}
@@ -233,7 +309,7 @@ int GLContext_OpenWindow( xiGLContext_t * const self, const int width, const int
 
 	} 
 	
-	self->window.handle = SDL_CreateWindow( "", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
+	self->window.handle = SDL_CreateWindow( "", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags );
 
 	if ( !self->window.handle ) {
 		self->status = STATUS_COULD_NOT_CREATE_WINDOW;
@@ -268,9 +344,88 @@ int GLContext_OpenWindow( xiGLContext_t * const self, const int width, const int
 		printf( "----------------------------------------------------------------\n" );
 #endif
 
+		glewInitialised = 1;
 	}
 	
 	return 1;
+}
+
+/*
+====================
+GLContext_OpenWindow
+
+	Sets the size of the context window
+====================
+*/
+int GLContext_OpenWindow( xiGLContext_t * const self, const int width, const int height ) {
+	return GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
+}
+
+/*
+====================
+GLContext_OpenFullScreenWithAA
+
+	Starts up anti aliasing before opening a fullscreen window
+====================
+*/
+int GLContext_OpenFullScreenWithAA( xiGLContext_t * const self, const int width, const int height, const int samples ) {
+	if ( !sdlReferences ) {
+		return 0;
+	}
+	
+	if ( samples ) {
+		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
+		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, ( samples > 8 ? 8 : samples ) );
+
+		glEnable( GL_MULTISAMPLE );
+
+		glEnable( GL_LINE_SMOOTH );
+		glEnable( GL_POLYGON_SMOOTH );
+
+	} else {
+		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
+		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
+
+		glDisable( GL_MULTISAMPLE );
+
+		glDisable( GL_LINE_SMOOTH );
+		glDisable( GL_POLYGON_SMOOTH );
+
+	}
+	
+	if ( windowListLen ) {
+		size_t ii = windowListLen - 1;
+		
+		do {
+			if ( windowList[ii] && windowList[ii] != self ) {
+				GLContext_Terminate( windowList[ii] );
+			}
+		} while ( ii-- );
+	}
+
+	return GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN );
+}
+
+/*
+====================
+GLContext_OpenFullScreen
+
+	Closes all windows on the window list
+	Opens a fullscreen window
+====================
+*/
+int GLContext_OpenFullScreen( xiGLContext_t * const self, const int width, const int height ) {
+	if ( windowListLen ) {
+		size_t ii = windowListLen - 1;
+		
+		do {
+			if ( windowList[ii] && windowList[ii] != self ) {
+				GLContext_Terminate( windowList[ii] );
+			}
+		} while ( ii-- );
+	}
+
+	return GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN );
 }
 
 /*
@@ -314,6 +469,11 @@ void GLContext_SwapWindow( xiGLContext_t * const self ) {
 	
 	if ( self->window.handle ) {
 		SDL_GL_SwapWindow( ( SDL_Window * )self->window.handle );
+
+		self->timer.last = self->timer.time;
+		self->timer.time = SDL_GetTicks();
+		
+		self->deltaTime = ( self->timer.time - self->timer.last ) * 0.001f;
 	}
 }
 
@@ -345,6 +505,9 @@ void GLContext_Terminate( xiGLContext_t * const self ) {
 
 		SDL_GL_DeleteContext( self->nativeContext );
 		SDL_DestroyWindow( ( SDL_Window * )self->window.handle );
+
+		WindowList_NullWindow( self );
+		WindowList_DropReference();
 	}
 
 	sdlReferences--;

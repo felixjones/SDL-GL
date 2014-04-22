@@ -3,7 +3,10 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <string.h>
-#include <stdio.h>
+
+#if defined( __DEBUG__ )
+	#include <stdio.h>
+#endif
 
 #if defined( __WIN_API__ )
 
@@ -11,8 +14,14 @@
 	#pragma comment( lib, "glew32s" )
 	#pragma comment( lib, "SDL2" )
 
-	#if defined( __X32__ ) && defined( __RELEASE__ )
-		#pragma comment( lib, "SDL2main" )
+	#if defined( __RELEASE__ ) && defined( __X32__ )
+
+		#include <stdlib.h>
+
+		int __stdcall WinMain( void * hInstance, void * hPrevInstance, char * lpCmdLine, int nCmdShow ) {
+			return __main( __argc, __argv );
+		}
+
 	#endif
 
 #endif
@@ -132,13 +141,13 @@ xiGLContext_t *	GLContext_Init( xiGLContext_t * const self ) {
 
 /*
 ====================
-GLContext_SetWindowSizeWithAA
+GLContext_OpenWindowWithAA
 
 	Sets the size of the context window
 	Also has an option for MSAA samples
 ====================
 */
-int GLContext_SetWindowSizeWithAA( xiGLContext_t * const self, const int width, const int height, const int samples ) {
+int GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, const int height, const int samples ) {
 	if ( !sdlReferences ) {
 		return 0;
 	}
@@ -163,17 +172,17 @@ int GLContext_SetWindowSizeWithAA( xiGLContext_t * const self, const int width, 
 
 	}
 	
-	return GLContext_SetWindowSize( self, width, height );
+	return GLContext_OpenWindow( self, width, height );
 }
 
 /*
 ====================
-GLContext_SetWindowSize
+GLContext_OpenWindow
 
 	Sets the size of the context window
 ====================
 */
-int GLContext_SetWindowSize( xiGLContext_t * const self, const int width, const int height ) {
+int GLContext_OpenWindow( xiGLContext_t * const self, const int width, const int height ) {
 	if ( self->status != STATUS_OKAY ) {
 		return 0;
 	}
@@ -212,14 +221,17 @@ int GLContext_SetWindowSize( xiGLContext_t * const self, const int width, const 
 			return 0;
 		}
 
-		 printf("----------------------------------------------------------------\n");
-  printf("Graphics Successfully Initialized\n");
-  printf("OpenGL Info\n");
-  printf("    Version: %s\n", glGetString(GL_VERSION));
-  printf("     Vendor: %s\n", glGetString(GL_VENDOR));
-  printf("   Renderer: %s\n", glGetString(GL_RENDERER));
-  printf("    Shading: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-  printf("----------------------------------------------------------------\n");
+#if defined( __DEBUG__ )
+		printf( "----------------------------------------------------------------\n" );
+		printf( "Graphics Successfully Initialized\n" );
+		printf( "OpenGL Info\n" );
+		printf( "    Version: %s\n", glGetString( GL_VERSION ) );
+		printf( "     Vendor: %s\n", glGetString( GL_VENDOR ) );
+		printf( "   Renderer: %s\n", glGetString( GL_RENDERER ) );
+		printf( "    Shading: %s\n", glGetString( GL_SHADING_LANGUAGE_VERSION ) );
+		printf( "----------------------------------------------------------------\n" );
+#endif
+
 	}
 	
 	return 1;
@@ -314,6 +326,13 @@ void GLContext_Terminate( xiGLContext_t * const self ) {
 	self->status = STATUS_TERMINATED;
 }
 
+/*
+====================
+GLContext_Alloc
+
+	Uses the stdlib heap memory manager to allocate space
+====================
+*/
 xiGLContext_t * GLContext_Alloc() {
 	xiGLContext_t * const self = ( xiGLContext_t * )malloc( sizeof( xiGLContext_t ) );
 
@@ -327,17 +346,39 @@ xiGLContext_t * GLContext_Alloc() {
 	return self;
 }
 
+/*
+====================
+GLContext_Dealloc
+
+	Calls Terminate before freeing memory
+====================
+*/
 void GLContext_Dealloc( xiGLContext_t * const self ) {
 	GLContext_Terminate( self );
 	free( self );
 }
 
+/*
+====================
+GLContext_Retain
+
+	Reference count ++ if it's on the heap
+====================
+*/
 void GLContext_Retain( xiGLContext_t * const self ) {
 	if ( self->memory.isHeap ) {
 		self->memory.references++;
 	}
 }
 
+/*
+====================
+GLContext_Release
+
+	Reference count -- if it's on the heap
+	Will call Dealloc when references are zero
+====================
+*/
 void GLContext_Release( xiGLContext_t * const self ) {
 	if ( self->memory.isHeap ) {
 		self->memory.references--;

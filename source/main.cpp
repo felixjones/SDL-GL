@@ -20,23 +20,16 @@ const char* fragment_shader =
 	"  frag_colour = vec4 (0.5, 0.0, 0.5, 1.0);"
 	"}";
 
-GLuint vao;
-GLuint vbo;
-
-GLuint vs;
-GLuint fs;
-GLuint shaderProg;
-
 int main( int argc, char ** argv ) {
 	xiGLContext_t * const context = GLContext_Init( GLContext_Alloc() );
-	GLContext_SetGLVersion( 3, 0 );
+	//GLContext_SetGLVersion( 3, 0 );
 			
 	if ( context ) {
-		GLContext_SetWindowSizeWithAA( context, 800, 600, 8 );
-		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
+		GLContext_OpenWindow( context, 800, 600 );
+		//GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
 
-		vs = glCreateShader (GL_VERTEX_SHADER);
-		fs = glCreateShader (GL_FRAGMENT_SHADER);
+		GLuint vs = glCreateShader (GL_VERTEX_SHADER);
+		GLuint fs = glCreateShader (GL_FRAGMENT_SHADER);
 
 		glShaderSource (vs, 1, &vertex_shader, 0);
 		glCompileShader (vs);
@@ -44,7 +37,7 @@ int main( int argc, char ** argv ) {
 		glShaderSource (fs, 1, &fragment_shader, 0);
 		glCompileShader (fs);
 			
-		shaderProg = glCreateProgram ();
+		GLuint shaderProg = glCreateProgram ();
 
 		glAttachShader( shaderProg, fs );
 		glAttachShader( shaderProg, vs );
@@ -53,12 +46,13 @@ int main( int argc, char ** argv ) {
 		glClearColor( 1.0, 0.0, 0.0, 1.0 );
 		glClear( GL_COLOR_BUFFER_BIT );
 
-		vbo = 0;
+		GLuint vbo = 0;
 
 		glGenBuffers (1, &vbo);
 		glBindBuffer (GL_ARRAY_BUFFER, vbo);
 		glBufferData (GL_ARRAY_BUFFER, 9 * sizeof (float), points, GL_STATIC_DRAW);
 
+		GLuint vao;
 		glGenVertexArrays (1, &vao);
 		glBindVertexArray (vao);
 		glEnableVertexAttribArray (0);
@@ -79,4 +73,6 @@ int main( int argc, char ** argv ) {
 
 		GLContext_Release( context );
 	}
+
+	return 1;
 }

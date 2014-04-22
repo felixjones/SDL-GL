@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\GL_Context.c" />
-    <ClCompile Include="..\source\main.c" />
+    <ClCompile Include="..\source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\GL_Context.h" />

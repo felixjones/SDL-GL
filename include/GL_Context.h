@@ -1,12 +1,22 @@
 #ifndef __GL_CONTEXT_H__
 #define __GL_CONTEXT_H__
 
+#if defined( __cplusplus )
+extern "C" {
+#endif
+
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include "os.h"
 
 #if defined( __WIN_API__ ) && defined( __RELEASE__ )
-	#define main	WinMain
+	#if defined( __X32__ )
+		int __main( int argc, char ** argv );
+		
+		#define main	__main
+	#else
+		#define main	WinMain
+	#endif
 #endif
 
 #define WINDOW_NAME_LEN	( 80 )
@@ -48,8 +58,8 @@ int				GLContext_SetGLVersion( const int versionMajor, const int versionMinor );
 int				GLContext_SetVSync( const int options );
 
 xiGLContext_t *	GLContext_Init( xiGLContext_t * const self );
-int				GLContext_SetWindowSizeWithAA( xiGLContext_t * const self, const int width, const int height, const int samples );
-int				GLContext_SetWindowSize( xiGLContext_t * const self, const int width, const int height );
+int				GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, const int height, const int samples );
+int				GLContext_OpenWindow( xiGLContext_t * const self, const int width, const int height );
 void			GLContext_SetWindowName( xiGLContext_t * const self, const char * const name );
 void			GLContext_SwapWindow( xiGLContext_t * const self );
 void			GLContext_Terminate( xiGLContext_t * const self );
@@ -59,5 +69,9 @@ xiGLContext_t *	GLContext_Alloc();
 void			GLContext_Dealloc( xiGLContext_t * const self );
 void			GLContext_Retain( xiGLContext_t * const self );
 void			GLContext_Release( xiGLContext_t * const self );
+
+#if defined( __cplusplus )
+}
+#endif
 
 #endif

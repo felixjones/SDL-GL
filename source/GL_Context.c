@@ -319,7 +319,7 @@ int GLContext_OpenWindowWithFlags( xiGLContext_t * const self, const int width, 
 		self->window.height = height;
 	
 		self->nativeContext = SDL_GL_CreateContext( ( SDL_Window * )self->window.handle );
-		
+
 		if ( self->window.name[0] ) {
 			SDL_SetWindowTitle( ( SDL_Window * )self->window.handle, &self->window.name[0] );
 		}

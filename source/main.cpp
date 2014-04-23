@@ -22,12 +22,13 @@ const char* fragment_shader =
 
 int main( int argc, char ** argv ) {
 	xiGLContext_t * const context = GLContext_Init( GLContext_Alloc() );
-	GLContext_SetGLVersion( 3, 0 );
 
 	if ( context ) {
-		GLContext_OpenWindowWithAA( context, 640, 480, 8 );
+		GLContext_SetWindowName( context, "OpenGL Test" );
+		GLContext_SetGLVersion( 3, 0 );
+		GLContext_OpenWindowWithAA( context, 1600, 900, 8 );
 		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
-
+		
 		GLuint vs = glCreateShader (GL_VERTEX_SHADER);
 		GLuint fs = glCreateShader (GL_FRAGMENT_SHADER);
 

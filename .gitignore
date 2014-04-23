@@ -1,11 +1,10 @@
 #Ignore SDL
-SDL/include/*
-SDL/lib/*
+SDL/*
+!SDL/SDL - include lib
 
 #Ignore GLEW
-GLEW/bin/*
-GLEW/include/*
-GLEW/lib/*
+GLEW/*
+!GLEW/GLEW - bin include lib
 
 #Ignore .sdf
 *.sdf

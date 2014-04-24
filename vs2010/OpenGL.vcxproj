@@ -42,6 +42,7 @@
     <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\MemoryFile.cpp" />
     <ClCompile Include="..\source\PathUtil.cpp" />
+    <ClCompile Include="..\source\PNG_Texture.c" />
     <ClCompile Include="..\source\ReadFile.cpp" />
     <ClCompile Include="..\source\WriteFile.cpp" />
     <ClCompile Include="..\source\ZipReader.cpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="..\include\MemoryFile.h" />
     <ClInclude Include="..\include\os.h" />
     <ClInclude Include="..\include\PathUtil.h" />
+    <ClInclude Include="..\include\PNG_Texture.h" />
     <ClInclude Include="..\include\ReadFile.h" />
     <ClInclude Include="..\include\WriteFile.h" />
     <ClInclude Include="..\include\ZipReader.h" />

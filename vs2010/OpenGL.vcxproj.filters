@@ -150,6 +150,9 @@
     <ClCompile Include="..\LIBPNG\source\pngwutil.c">
       <Filter>libraries\libpng</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\PNG_Texture.c">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\os.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="..\LIBPNG\include\pnglibconf.h">
       <Filter>libraries\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PNG_Texture.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

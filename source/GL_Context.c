@@ -173,7 +173,7 @@ int GLContext_SetVSync( const int options ) {
 	} else {
 		SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 0 );
 	}
-		
+	
 	return 1;
 }
 
@@ -273,7 +273,6 @@ int GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, con
 	} else {
 		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
 		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
-
 	}
 	
 	status = GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
@@ -304,7 +303,7 @@ int GLContext_OpenWindowWithFlags( xiGLContext_t * const self, const int width, 
 	if ( self->status != STATUS_OKAY ) {
 		return 0;
 	}
-
+	
 	if ( self->window.handle ) {
 
 		SDL_GL_DeleteContext( self->nativeContext );
@@ -313,10 +312,12 @@ int GLContext_OpenWindowWithFlags( xiGLContext_t * const self, const int width, 
 		self->window.handle = 0;
 		self->nativeContext = 0;
 
-	} 
+	}
 	
-	self->window.handle = SDL_CreateWindow( "", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags );
+	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 24 );
 
+	self->window.handle = SDL_CreateWindow( "", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags );
+	
 	if ( !self->window.handle ) {
 		self->status = STATUS_COULD_NOT_CREATE_WINDOW;
 		return 0;
@@ -325,6 +326,7 @@ int GLContext_OpenWindowWithFlags( xiGLContext_t * const self, const int width, 
 		self->window.height = height;
 	
 		self->nativeContext = SDL_GL_CreateContext( ( SDL_Window * )self->window.handle );
+		SDL_GL_MakeCurrent( ( SDL_Window * )self->window.handle, self->nativeContext ); 
 
 		if ( self->window.name[0] ) {
 			SDL_SetWindowTitle( ( SDL_Window * )self->window.handle, &self->window.name[0] );

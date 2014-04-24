@@ -12,7 +12,8 @@ LIBPNG/LIBPNG/*
 LIBPNG/source/*
 !LIBPNG/source/LIBPNG - C
 LIBPNG/include/*
-!LIBPNG/include/LIBPNG - H
+!LIBPNG/include/LIBPNG - H Conf
+!LIBPNG/include/pnglibconf.h
 
 #Ignore SDL
 SDL/*

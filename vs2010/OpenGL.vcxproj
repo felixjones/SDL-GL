@@ -44,6 +44,8 @@
     <ClCompile Include="..\source\PathUtil.cpp" />
     <ClCompile Include="..\source\PNG_Texture.c" />
     <ClCompile Include="..\source\ReadFile.cpp" />
+    <ClCompile Include="..\source\Shader.cpp" />
+    <ClCompile Include="..\source\ShaderProg.cpp" />
     <ClCompile Include="..\source\WriteFile.cpp" />
     <ClCompile Include="..\source\ZipReader.cpp" />
     <ClCompile Include="..\ZLIB\source\adler32.c" />
@@ -76,6 +78,8 @@
     <ClInclude Include="..\include\PathUtil.h" />
     <ClInclude Include="..\include\PNG_Texture.h" />
     <ClInclude Include="..\include\ReadFile.h" />
+    <ClInclude Include="..\include\Shader.h" />
+    <ClInclude Include="..\include\ShaderProg.h" />
     <ClInclude Include="..\include\WriteFile.h" />
     <ClInclude Include="..\include\ZipReader.h" />
     <ClInclude Include="..\LIBPNG\include\png.h" />

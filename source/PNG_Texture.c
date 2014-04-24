@@ -126,12 +126,6 @@ GLuint PNGTexture_LoadBytes( xiPNGTexture_t * const self, const char * const byt
 
 			glTexImage2D( GL_TEXTURE_2D, 0, format, self->width, self->height, 0, format, GL_UNSIGNED_BYTE, image_data );
 
-			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-			glGenerateMipmap( GL_TEXTURE_2D );
-
 			png_destroy_read_struct( &png_ptr, &info_ptr, &end_info );
 			free( image_data );
 			free( row_pointers );
@@ -141,6 +135,16 @@ GLuint PNGTexture_LoadBytes( xiPNGTexture_t * const self, const char * const byt
 	}
 
 	return self->glHandle;
+}
+
+void PNGTexture_GLParam( const xiPNGTexture_t * const self, const GLenum param, const GLint arg ) {
+	glBindTexture( GL_TEXTURE_2D, self->glHandle );
+	glTexParameteri( GL_TEXTURE_2D, param, arg );
+}
+
+void PNGTexture_GLGenMips( const xiPNGTexture_t * const self ) {
+	glBindTexture( GL_TEXTURE_2D, self->glHandle );
+	glGenerateMipmap( GL_TEXTURE_2D );
 }
 
 xiPNGTexture_t * PNGTexture_InitWithBytes( xiPNGTexture_t * const self, const char * const bytes, const size_t byteLen ) {

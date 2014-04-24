@@ -1,17 +1,21 @@
 #include "GL_Context.h"
 #include "PNG_Texture.h"
 #include "ReadFile.h"
+#include "Shader.h"
+#include "ShaderProg.h"
 
 float points[] = {
-	0.0f,  0.5f,  0.0f,
+	-0.5f,  0.5f,  0.0f,
+	0.5f, 0.5f,  0.0f,
 	0.5f, -0.5f,  0.0f,
 	-0.5f, -0.5f,  0.0f
 };
 
 float uvs[] = {
-	0.0f,  0.0f,
+	0.0f,  1.0f,
+	1.0f,  1.0f,
 	1.0f,  0.0f,
-	1.0f,  1.0f
+	0.0f,  0.0f
 };
 
 int main( int argc, char ** argv ) {
@@ -22,6 +26,8 @@ int main( int argc, char ** argv ) {
 		GLContext_SetGLVersion( 3, 3 );
 		GLContext_OpenWindowWithAA( context, 800, 600, 8 );
 		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
+
+		xiShader * const shader = xiShader::Get();
 		
 		xiPNGTexture_t * const texture = PNGTexture_Alloc();
 
@@ -31,81 +37,24 @@ int main( int argc, char ** argv ) {
 			pngFile->Read( pngBytes, pngFile->GetSize() );
 
 			PNGTexture_InitWithBytes( texture, pngBytes, pngFile->GetSize() );
+			
+			PNGTexture_GLParam( texture, GL_TEXTURE_WRAP_S, GL_REPEAT );
+			PNGTexture_GLParam( texture, GL_TEXTURE_WRAP_T, GL_REPEAT );
+			PNGTexture_GLParam( texture, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+			PNGTexture_GLParam( texture, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+			PNGTexture_GLGenMips( texture );
 
 			delete[]( pngBytes );
 		}
 		
-		char * vertex_shader = 0;
-		xiReadFile * const vertexSourceFile = xiReadFile::CreateReadFile( "basic.vsh" );
-		if ( vertexSourceFile ) {
-			vertex_shader = new char[vertexSourceFile->GetSize() + 1];
-			vertexSourceFile->Read( vertex_shader, vertexSourceFile->GetSize() );
-			vertex_shader[vertexSourceFile->GetSize()] = 0;
-
-			vertexSourceFile->Release();
-		}
+		const GLuint vs = shader->Compile( "basic.vsh", xiShader::SHADER_VERTEX );
+		const GLuint fs = shader->Compile( "basic.fsh", xiShader::SHADER_FRAGMENT );
 		
-		char * fragment_shader = 0;
-		xiReadFile * const fragmentSourceFile = xiReadFile::CreateReadFile( "basic.fsh" );
-		if ( fragmentSourceFile ) {
-			fragment_shader = new char[fragmentSourceFile->GetSize() + 1];
-			fragmentSourceFile->Read( fragment_shader, fragmentSourceFile->GetSize() );
-			fragment_shader[fragmentSourceFile->GetSize()] = 0;
+		xiShaderProg * const shaderProg = new xiShaderProg();
+		shaderProg->Attach( vs );
+		shaderProg->Attach( fs );
+		shaderProg->Link();
 
-			fragmentSourceFile->Release();
-		}
-
-		GLuint vs = glCreateShader( GL_VERTEX_SHADER );
-		GLuint fs = glCreateShader( GL_FRAGMENT_SHADER );
-		
-		if ( vertex_shader ) {
-			glShaderSource( vs, 1, ( const char ** )&vertex_shader, 0 );
-			glCompileShader( vs );
-			delete[]( vertex_shader );
-
-			GLint isCompiled = 0;
-			glGetShaderiv(vs, GL_COMPILE_STATUS, &isCompiled);
-			if(isCompiled == GL_FALSE) {
-				GLint maxLength = 0;
-				glGetShaderiv(vs, GL_INFO_LOG_LENGTH, &maxLength);
- 
-				//The maxLength includes the NULL character
-				char * const infoLog = new char[maxLength];
-				glGetShaderInfoLog(vs, maxLength, &maxLength, &infoLog[0]);
- 
-				//We don't need the shader anymore.
-				glDeleteShader(vs);
-				delete[]( infoLog );
-			}
-		}
-		
-		if ( fragment_shader ) {
-			glShaderSource( fs, 1, ( const char ** )&fragment_shader, 0 );
-			glCompileShader( fs );
-			delete[]( fragment_shader );
-			
-			GLint isCompiled = 0;
-			glGetShaderiv(fs, GL_COMPILE_STATUS, &isCompiled);
-			if(isCompiled == GL_FALSE) {
-				GLint maxLength = 0;
-				glGetShaderiv(fs, GL_INFO_LOG_LENGTH, &maxLength);
- 
-				//The maxLength includes the NULL character
-				char * const infoLog = new char[maxLength];
-				glGetShaderInfoLog(fs, maxLength, &maxLength, &infoLog[0]);
- 
-				//We don't need the shader anymore.
-				glDeleteShader(fs);
-				delete[]( infoLog );
-			}
-		}
-				
-		GLuint shaderProg = glCreateProgram();
-
-		glAttachShader( shaderProg, fs );
-		glAttachShader( shaderProg, vs );
-		glLinkProgram( shaderProg );
-		
 		glClearColor( 1.0, 0.0, 0.0, 1.0 );
 		glClear( GL_COLOR_BUFFER_BIT );
 
@@ -113,10 +62,10 @@ int main( int argc, char ** argv ) {
 		glGenBuffers( 2, &vbo[0] );
 		{
 			glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
-			glBufferData( GL_ARRAY_BUFFER, 9 * sizeof( float ), points, GL_STATIC_DRAW );
+			glBufferData( GL_ARRAY_BUFFER, 12 * sizeof( float ), points, GL_STATIC_DRAW );
 
 			glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
-			glBufferData( GL_ARRAY_BUFFER, 6 * sizeof( float ), uvs, GL_STATIC_DRAW );
+			glBufferData( GL_ARRAY_BUFFER, 8 * sizeof( float ), uvs, GL_STATIC_DRAW );
 		}
 		
 		GLuint vao;
@@ -135,27 +84,40 @@ int main( int argc, char ** argv ) {
 				
 		GLuint textureID = PNGTexture_GLHandle( texture );
 
-		glUseProgram( shaderProg );
-		GLint texUnitLoc = glGetUniformLocation( shaderProg, "textureSample" );
-		glProgramUniform1i( shaderProg, texUnitLoc, 0 );
+		shaderProg->Use();
+
+		shaderProg->SetUniformInt( shaderProg->GetUniformLoc( "textureSample" ), 0 );
+		const int shadeLoc = shaderProg->GetUniformLoc( "shade" );
 
 		glActiveTexture( GL_TEXTURE0 );
 		glBindTexture( GL_TEXTURE_2D, textureID );
 
 		glEnable( GL_BLEND );
 		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+		
+		glBindVertexArray( vao );
+
+		float col = 0.0f;
 
 		while ( GLContext_Run( context ) ) {
 			// wipe the drawing surface clear
 			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-			glUseProgram( shaderProg );
-			glBindVertexArray( vao );
-			glDrawArrays( GL_TRIANGLES, 0, 3 );
+			//glUseProgram( shaderProg );
+			//glBindVertexArray( vao );
+			glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
 
 			GLContext_SwapWindow( context );
 			GLContext_DrainEvents();
+
+			col += context->deltaTime;
+			if ( col > 6.28318530718f ) {
+				col = 0.0f;
+			}
+
+			shaderProg->SetUniformFloat( shadeLoc, col );
 		}
 		
+		shader->Release();
 		PNGTexture_Release( texture );
 
 		GLContext_Release( context );

@@ -25,6 +25,9 @@
     <Filter Include="libraries\libpng">
       <UniqueIdentifier>{d4bc1206-cae3-46b7-860f-e85d92f2f51f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OpenGL">
+      <UniqueIdentifier>{94c08186-1e13-4347-9ddf-11de3b4cfd75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\GL_Context.c">
@@ -153,6 +156,12 @@
     <ClCompile Include="..\source\PNG_Texture.c">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\Shader.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ShaderProg.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\os.h">
@@ -253,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="..\include\PNG_Texture.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Shader.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ShaderProg.h">
+      <Filter>OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -28,6 +28,8 @@ xiPNGTexture_t *	PNGTexture_InitWithBytes( xiPNGTexture_t * const self, const ch
 void				PNGTexture_Terminate( xiPNGTexture_t * const self );
 GLuint				PNGTexture_GLHandle( const xiPNGTexture_t * const self );
 GLuint				PNGTexture_LoadBytes( xiPNGTexture_t * const self, const char * const bytes, const size_t byteLen );
+void				PNGTexture_GLParam( const xiPNGTexture_t * const self, const GLenum param, const GLint arg );
+void				PNGTexture_GLGenMips( const xiPNGTexture_t * const self );
 
 xiPNGTexture_t *	PNGTexture_Alloc();
 void				PNGTexture_Dealloc( xiPNGTexture_t * const self );

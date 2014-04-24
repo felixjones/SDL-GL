@@ -1,3 +1,9 @@
+#Ignore ZLIB
+ZLIB/*
+!ZLIB/ZLIB - C H
+!ZLIB/include/ZLIB - H
+!ZLIB/source/ZLIB - C
+
 #Ignore SDL
 SDL/*
 !SDL/SDL - include lib

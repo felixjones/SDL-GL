@@ -1,8 +1,10 @@
 #Ignore ZLIB
-ZLIB/*
+ZLIB/ZLIB/*
 !ZLIB/ZLIB - C H
-!ZLIB/include/ZLIB - H
+ZLIB/source/*
 !ZLIB/source/ZLIB - C
+ZLIB/include/*
+!ZLIB/include/ZLIB - H
 
 #Ignore SDL
 SDL/*

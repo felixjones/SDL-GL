@@ -7,6 +7,21 @@
     <Filter Include="include">
       <UniqueIdentifier>{a84f28d3-fc0a-40d0-a8b3-3c41ed081c7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="File System">
+      <UniqueIdentifier>{ddacc2cd-914b-449b-8d5f-95a8e62b19c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File System\File">
+      <UniqueIdentifier>{42355e53-d9b3-4ff0-a9be-bef3b2308104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{6cbc114d-f4d8-4df4-a3d9-9d3d04163bba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\zlib">
+      <UniqueIdentifier>{13f3f610-3e92-4843-9420-24ad4d6275ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File System\Archive Loaders">
+      <UniqueIdentifier>{801b81a3-7ad7-4a02-9f3e-fc9f99115257}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\GL_Context.c">
@@ -15,12 +30,153 @@
     <ClCompile Include="..\source\main.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\FileList.cpp">
+      <Filter>File System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\FileSystem.cpp">
+      <Filter>File System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\PathUtil.cpp">
+      <Filter>File System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\File.cpp">
+      <Filter>File System\File</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\LimitReadFile.cpp">
+      <Filter>File System\File</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\MemoryFile.cpp">
+      <Filter>File System\File</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ReadFile.cpp">
+      <Filter>File System\File</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\WriteFile.cpp">
+      <Filter>File System\File</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\adler32.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\compress.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\crc32.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\deflate.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\gzclose.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\gzlib.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\gzread.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\gzwrite.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\infback.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\inffast.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\inflate.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\inftrees.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\trees.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\uncompr.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ZLIB\source\zutil.c">
+      <Filter>libraries\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ZipReader.cpp">
+      <Filter>File System\Archive Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\os.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GL_Context.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FileList.h">
+      <Filter>File System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FileSystem.h">
+      <Filter>File System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PathUtil.h">
+      <Filter>File System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\File.h">
+      <Filter>File System\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\LimitReadFile.h">
+      <Filter>File System\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MemoryFile.h">
+      <Filter>File System\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ReadFile.h">
+      <Filter>File System\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\WriteFile.h">
+      <Filter>File System\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FileArchive.h">
+      <Filter>File System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\crc32.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\deflate.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\gzguts.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\inffast.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\inffixed.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\inflate.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\inftrees.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\trees.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\zconf.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\zlib.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ZLIB\include\zutil.h">
+      <Filter>libraries\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ZipReader.h">
+      <Filter>File System\Archive Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\bytePack.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\byteUnpack.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

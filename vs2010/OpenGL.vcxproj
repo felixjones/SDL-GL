@@ -19,12 +19,59 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\File.cpp" />
+    <ClCompile Include="..\source\FileList.cpp" />
+    <ClCompile Include="..\source\FileSystem.cpp" />
     <ClCompile Include="..\source\GL_Context.c" />
+    <ClCompile Include="..\source\LimitReadFile.cpp" />
     <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="..\source\MemoryFile.cpp" />
+    <ClCompile Include="..\source\PathUtil.cpp" />
+    <ClCompile Include="..\source\ReadFile.cpp" />
+    <ClCompile Include="..\source\WriteFile.cpp" />
+    <ClCompile Include="..\source\ZipReader.cpp" />
+    <ClCompile Include="..\ZLIB\source\adler32.c" />
+    <ClCompile Include="..\ZLIB\source\compress.c" />
+    <ClCompile Include="..\ZLIB\source\crc32.c" />
+    <ClCompile Include="..\ZLIB\source\deflate.c" />
+    <ClCompile Include="..\ZLIB\source\gzclose.c" />
+    <ClCompile Include="..\ZLIB\source\gzlib.c" />
+    <ClCompile Include="..\ZLIB\source\gzread.c" />
+    <ClCompile Include="..\ZLIB\source\gzwrite.c" />
+    <ClCompile Include="..\ZLIB\source\infback.c" />
+    <ClCompile Include="..\ZLIB\source\inffast.c" />
+    <ClCompile Include="..\ZLIB\source\inflate.c" />
+    <ClCompile Include="..\ZLIB\source\inftrees.c" />
+    <ClCompile Include="..\ZLIB\source\trees.c" />
+    <ClCompile Include="..\ZLIB\source\uncompr.c" />
+    <ClCompile Include="..\ZLIB\source\zutil.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\bytePack.h" />
+    <ClInclude Include="..\include\byteUnpack.h" />
+    <ClInclude Include="..\include\File.h" />
+    <ClInclude Include="..\include\FileArchive.h" />
+    <ClInclude Include="..\include\FileList.h" />
+    <ClInclude Include="..\include\FileSystem.h" />
     <ClInclude Include="..\include\GL_Context.h" />
+    <ClInclude Include="..\include\LimitReadFile.h" />
+    <ClInclude Include="..\include\MemoryFile.h" />
     <ClInclude Include="..\include\os.h" />
+    <ClInclude Include="..\include\PathUtil.h" />
+    <ClInclude Include="..\include\ReadFile.h" />
+    <ClInclude Include="..\include\WriteFile.h" />
+    <ClInclude Include="..\include\ZipReader.h" />
+    <ClInclude Include="..\ZLIB\include\crc32.h" />
+    <ClInclude Include="..\ZLIB\include\deflate.h" />
+    <ClInclude Include="..\ZLIB\include\gzguts.h" />
+    <ClInclude Include="..\ZLIB\include\inffast.h" />
+    <ClInclude Include="..\ZLIB\include\inffixed.h" />
+    <ClInclude Include="..\ZLIB\include\inflate.h" />
+    <ClInclude Include="..\ZLIB\include\inftrees.h" />
+    <ClInclude Include="..\ZLIB\include\trees.h" />
+    <ClInclude Include="..\ZLIB\include\zconf.h" />
+    <ClInclude Include="..\ZLIB\include\zlib.h" />
+    <ClInclude Include="..\ZLIB\include\zutil.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{76292E4D-9D9C-47A6-A578-36942FAA9E1D}</ProjectGuid>
@@ -89,7 +136,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -111,7 +158,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -135,7 +182,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -161,7 +208,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN64;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

@@ -19,6 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\LIBPNG\source\png.c" />
+    <ClCompile Include="..\LIBPNG\source\pngerror.c" />
+    <ClCompile Include="..\LIBPNG\source\pngget.c" />
+    <ClCompile Include="..\LIBPNG\source\pngmem.c" />
+    <ClCompile Include="..\LIBPNG\source\pngpread.c" />
+    <ClCompile Include="..\LIBPNG\source\pngread.c" />
+    <ClCompile Include="..\LIBPNG\source\pngrio.c" />
+    <ClCompile Include="..\LIBPNG\source\pngrtran.c" />
+    <ClCompile Include="..\LIBPNG\source\pngrutil.c" />
+    <ClCompile Include="..\LIBPNG\source\pngset.c" />
+    <ClCompile Include="..\LIBPNG\source\pngtrans.c" />
+    <ClCompile Include="..\LIBPNG\source\pngwio.c" />
+    <ClCompile Include="..\LIBPNG\source\pngwrite.c" />
+    <ClCompile Include="..\LIBPNG\source\pngwtran.c" />
+    <ClCompile Include="..\LIBPNG\source\pngwutil.c" />
     <ClCompile Include="..\source\File.cpp" />
     <ClCompile Include="..\source\FileList.cpp" />
     <ClCompile Include="..\source\FileSystem.cpp" />
@@ -61,6 +76,13 @@
     <ClInclude Include="..\include\ReadFile.h" />
     <ClInclude Include="..\include\WriteFile.h" />
     <ClInclude Include="..\include\ZipReader.h" />
+    <ClInclude Include="..\LIBPNG\include\png.h" />
+    <ClInclude Include="..\LIBPNG\include\pngconf.h" />
+    <ClInclude Include="..\LIBPNG\include\pngdebug.h" />
+    <ClInclude Include="..\LIBPNG\include\pnginfo.h" />
+    <ClInclude Include="..\LIBPNG\include\pnglibconf.h" />
+    <ClInclude Include="..\LIBPNG\include\pngpriv.h" />
+    <ClInclude Include="..\LIBPNG\include\pngstruct.h" />
     <ClInclude Include="..\ZLIB\include\crc32.h" />
     <ClInclude Include="..\ZLIB\include\deflate.h" />
     <ClInclude Include="..\ZLIB\include\gzguts.h" />
@@ -136,7 +158,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\LIBPNG\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -158,7 +180,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\LIBPNG\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -182,7 +204,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\LIBPNG\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -208,7 +230,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN64;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\LIBPNG\include;..\ZLIB\include;..\SDL\include;..\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

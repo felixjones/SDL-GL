@@ -1,5 +1,4 @@
 #include "GL_Context.h"
-#include "FileSystem.h"
 
 float points[] = {
 	0.0f,  0.5f,  0.0f,

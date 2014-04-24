@@ -22,6 +22,9 @@
     <Filter Include="File System\Archive Loaders">
       <UniqueIdentifier>{801b81a3-7ad7-4a02-9f3e-fc9f99115257}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libraries\libpng">
+      <UniqueIdentifier>{d4bc1206-cae3-46b7-860f-e85d92f2f51f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\GL_Context.c">
@@ -102,6 +105,51 @@
     <ClCompile Include="..\source\ZipReader.cpp">
       <Filter>File System\Archive Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\png.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngerror.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngget.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngmem.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngpread.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngread.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngrio.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngrtran.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngrutil.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngset.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngtrans.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngwio.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngwrite.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngwtran.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LIBPNG\source\pngwutil.c">
+      <Filter>libraries\libpng</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\os.h">
@@ -178,6 +226,27 @@
     </ClInclude>
     <ClInclude Include="..\include\byteUnpack.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LIBPNG\include\png.h">
+      <Filter>libraries\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LIBPNG\include\pngconf.h">
+      <Filter>libraries\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LIBPNG\include\pngdebug.h">
+      <Filter>libraries\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LIBPNG\include\pnginfo.h">
+      <Filter>libraries\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LIBPNG\include\pngpriv.h">
+      <Filter>libraries\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LIBPNG\include\pngstruct.h">
+      <Filter>libraries\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LIBPNG\include\pnglibconf.h">
+      <Filter>libraries\libpng</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

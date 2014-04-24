@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define FILE_NAME_LEN	( 80 )
+#define FILE_NAME_LEN	( 240 )
 
 class xiFile {
 public:

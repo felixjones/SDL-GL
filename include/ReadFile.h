@@ -3,8 +3,6 @@
 
 #include "File.h"
 
-// const io::path& fileName, IReadFile* alreadyOpenedFile, long pos, long areaSize
-
 class xiReadFile : public xiFile {
 public:
 	static xiReadFile *	CreateReadFile( const char * const _fileName );

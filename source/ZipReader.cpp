@@ -184,7 +184,7 @@ bool xiZipReader::ScanZipHeader( const bool ignoreGPBits ) {
 
 	readFile->Read( &entry.header, sizeof( zipFileHeader_t ) );
 
-#if defined( __POSIX__ )
+/*#if defined( __POSIX__ )
 	entry.header.sig = ntohl( entry.header.sig );
 	entry.header.versionToExtract = ntohs( entry.header.versionToExtract );
 	entry.header.generalBitFlag = ntohs( entry.header.generalBitFlag );
@@ -196,7 +196,7 @@ bool xiZipReader::ScanZipHeader( const bool ignoreGPBits ) {
 	entry.header.dataDescriptor.uncompressedSize = ntohl( entry.header.dataDescriptor.uncompressedSize );
 	entry.header.fileNameLength = ntohs( entry.header.fileNameLength );
 	entry.header.extraFieldLength = ntohs( entry.header.extraFieldLength );
-#endif
+#endif*/
 
 	if ( entry.header.sig != 0x04034b50 ) {
 		return false; // local file headers end here.
@@ -254,7 +254,7 @@ bool xiZipReader::ScanZipHeader( const bool ignoreGPBits ) {
 		}
 		readFile->Read( &dirEnd, sizeof( dirEnd ) );
 
-#if defined( __POSIX__ )
+/*#if defined( __POSIX__ )
 		dirEnd.numberDisk = ntohs( dirEnd.numberDisk );
 		dirEnd.numberStart = ntohs( dirEnd.numberStart );
 		dirEnd.totalDisk = ntohs( dirEnd.totalDisk );
@@ -262,7 +262,7 @@ bool xiZipReader::ScanZipHeader( const bool ignoreGPBits ) {
 		dirEnd.size = ntohl( dirEnd.size );
 		dirEnd.offset = ntohl( dirEnd.offset );
 		dirEnd.commentLength = ntohs( dirEnd.commentLength );
-#endif
+#endif*/
 		zipFileEntry_t * const biggerEntries = ( zipFileEntry_t * )realloc( fileInfo.entries, sizeof( *fileInfo.entries ) * dirEnd.totalEntries );
 		if ( biggerEntries ) {
 			fileInfo.entries = biggerEntries;
@@ -295,7 +295,7 @@ bool xiZipReader::ScanCentralDirectoryHeader() {
 	zipFileCentralDirFileHeader_t entry;
 	readFile->Read( &entry, sizeof( zipFileCentralDirFileHeader_t ) );
 	
-#if defined( __POSIX__ )
+/*#if defined( __POSIX__ )
 	entry.sig = ntohl( entry.sig );
 	entry.versionMadeBy = ntohs( entry.versionMadeBy );
 	entry.versionToExtract = ntohs( entry.versionToExtract );
@@ -313,7 +313,7 @@ bool xiZipReader::ScanCentralDirectoryHeader() {
 	entry.internalFileAttributes = ntohs( entry.internalFileAttributes );
 	entry.externalFileAttributes = ntohl( entry.externalFileAttributes );
 	entry.relativeOffsetOfLocalHeader = ntohl( entry.relativeOffsetOfLocalHeader );
-#endif
+#endif*/
 
 	if ( entry.sig != 0x02014b50 ) {
 		return false; // central dir headers end here.

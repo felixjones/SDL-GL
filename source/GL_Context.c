@@ -260,6 +260,8 @@ GLContext_OpenWindowWithAA
 ====================
 */
 int GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, const int height, const int samples ) {
+	int status;
+	
 	if ( !sdlReferences ) {
 		return 0;
 	}
@@ -274,7 +276,7 @@ int GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, con
 
 	}
 	
-	const int status = GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
+	status = GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
 	
 	if ( samples ) {
 		glEnable( GL_MULTISAMPLE );

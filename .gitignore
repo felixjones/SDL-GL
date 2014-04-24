@@ -6,6 +6,14 @@ ZLIB/source/*
 ZLIB/include/*
 !ZLIB/include/ZLIB - H
 
+#Ignore LIBPNG
+LIBPNG/LIBPNG/*
+!LIBPNG/LIBPNG - C H
+LIBPNG/source/*
+!LIBPNG/source/LIBPNG - C
+LIBPNG/include/*
+!LIBPNG/include/LIBPNG - H
+
 #Ignore SDL
 SDL/*
 !SDL/SDL - include lib

@@ -25,7 +25,7 @@ int main( int argc, char ** argv ) {
 		GLContext_SetWindowName( context, "OpenGL Test" );
 		GLContext_SetGLVersion( 3, 3 );
 		GLContext_OpenWindowWithAA( context, 800, 600, 8 );
-		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
+		//GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
 
 		xiShader * const shader = xiShader::Get();
 		
@@ -99,6 +99,9 @@ int main( int argc, char ** argv ) {
 
 		float col = 0.0f;
 
+		float accel = 0.0f;
+		float dir = 1.0f;
+
 		while ( GLContext_Run( context ) ) {
 			// wipe the drawing surface clear
 			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -109,9 +112,13 @@ int main( int argc, char ** argv ) {
 			GLContext_SwapWindow( context );
 			GLContext_DrainEvents();
 
-			col += context->deltaTime;
-			if ( col > 6.28318530718f ) {
-				col = 0.0f;
+			col += context->deltaTime * accel;
+			accel += context->deltaTime * dir * 2.0f;
+
+			if ( accel > 50.0f ) {
+				dir = -1.0f;
+			} else if ( accel < 0.0f ) {
+				dir = 1.0f;
 			}
 
 			shaderProg->SetUniformFloat( shadeLoc, col );

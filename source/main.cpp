@@ -7,14 +7,14 @@ float points[] = {
 };
 
 const char* vertex_shader =
-	"#version 130\n"
-	"in vec3 vp;"
+	"#version 330\n"
+	"layout ( location = 0 ) in vec3 vp;"
 	"void main () {"
 	"  gl_Position = vec4 (vp, 1.0);"
 	"}";
 
 const char* fragment_shader =
-	"#version 130\n"
+	"#version 330\n"
 	"out vec4 frag_colour;"
 	"void main () {"
 	"  frag_colour = vec4 (0.5, 0.0, 0.5, 1.0);"
@@ -25,19 +25,19 @@ int main( int argc, char ** argv ) {
 
 	if ( context ) {
 		GLContext_SetWindowName( context, "OpenGL Test" );
-		GLContext_SetGLVersion( 3, 0 );
+		GLContext_SetGLVersion( 3, 3 );
 		GLContext_OpenWindowWithAA( context, 640, 480, 8 );
 		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
 		
 		GLuint vs = glCreateShader( GL_VERTEX_SHADER );
 		GLuint fs = glCreateShader( GL_FRAGMENT_SHADER );
-
+		
 		glShaderSource( vs, 1, &vertex_shader, 0 );
 		glCompileShader( vs );
 
 		glShaderSource( fs, 1, &fragment_shader, 0 );
 		glCompileShader( fs );
-			
+				
 		GLuint shaderProg = glCreateProgram();
 
 		glAttachShader( shaderProg, fs );

@@ -2,6 +2,7 @@
 #define __PATH_UTIL_H__
 
 #include <stdint.h>
+#include <stddef.h>
 
 namespace PathUtil {
 	void	UnixSlashes( char * const cstring );

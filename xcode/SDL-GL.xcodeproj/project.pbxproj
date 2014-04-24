@@ -1,0 +1,475 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6327D6DB19096C88002ADD5D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DFA545190961D3009A0C28 /* OpenGL.framework */; };
+		63AE65BF19096DF900363FC2 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6327D6D719096C4D002ADD5D /* SDL2.framework */; };
+		63BEAE4D1909625700248862 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63BEAE4C1909625700248862 /* libGLEW.a */; };
+		63BEAE6819096A5300248862 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE5919096A5300248862 /* adler32.c */; };
+		63BEAE6919096A5300248862 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE5A19096A5300248862 /* compress.c */; };
+		63BEAE6A19096A5300248862 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE5B19096A5300248862 /* crc32.c */; };
+		63BEAE6B19096A5300248862 /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE5C19096A5300248862 /* deflate.c */; };
+		63BEAE6C19096A5300248862 /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE5D19096A5300248862 /* gzclose.c */; };
+		63BEAE6D19096A5300248862 /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE5E19096A5300248862 /* gzlib.c */; };
+		63BEAE6E19096A5300248862 /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE5F19096A5300248862 /* gzread.c */; };
+		63BEAE6F19096A5300248862 /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE6019096A5300248862 /* gzwrite.c */; };
+		63BEAE7019096A5300248862 /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE6119096A5300248862 /* infback.c */; };
+		63BEAE7119096A5300248862 /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE6219096A5300248862 /* inffast.c */; };
+		63BEAE7219096A5300248862 /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE6319096A5300248862 /* inflate.c */; };
+		63BEAE7319096A5300248862 /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE6419096A5300248862 /* inftrees.c */; };
+		63BEAE7419096A5300248862 /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE6519096A5300248862 /* trees.c */; };
+		63BEAE7519096A5300248862 /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE6619096A5300248862 /* uncompr.c */; };
+		63BEAE7619096A5300248862 /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 63BEAE6719096A5300248862 /* zutil.c */; };
+		63DFA5211909605A009A0C28 /* FileList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA51F1909605A009A0C28 /* FileList.cpp */; };
+		63DFA5221909605A009A0C28 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA5201909605A009A0C28 /* FileSystem.cpp */; };
+		63DFA52D1909608B009A0C28 /* GL_Context.c in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA52B1909608B009A0C28 /* GL_Context.c */; };
+		63DFA52E1909608B009A0C28 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA52C1909608B009A0C28 /* main.cpp */; };
+		63DFA53019096093009A0C28 /* PathUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA52F19096093009A0C28 /* PathUtil.cpp */; };
+		63DFA534190960AC009A0C28 /* ZipReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA533190960AC009A0C28 /* ZipReader.cpp */; };
+		63DFA53B190960C1009A0C28 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA536190960C1009A0C28 /* File.cpp */; };
+		63DFA53C190960C1009A0C28 /* LimitReadFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA537190960C1009A0C28 /* LimitReadFile.cpp */; };
+		63DFA53D190960C1009A0C28 /* MemoryFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA538190960C1009A0C28 /* MemoryFile.cpp */; };
+		63DFA53E190960C1009A0C28 /* ReadFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA539190960C1009A0C28 /* ReadFile.cpp */; };
+		63DFA53F190960C1009A0C28 /* WriteFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DFA53A190960C1009A0C28 /* WriteFile.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		63B7A7101909600C00F56346 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6327D6D719096C4D002ADD5D /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		6327D6D919096C79002ADD5D /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		63BEAE4A1909623100248862 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL/lib/SDL2.framework; sourceTree = "<group>"; };
+		63BEAE4C1909625700248862 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../GLEW/lib/libGLEW.a; sourceTree = "<group>"; };
+		63BEAE4E19096A4B00248862 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = ../ZLIB/include/crc32.h; sourceTree = "<group>"; };
+		63BEAE4F19096A4B00248862 /* deflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deflate.h; path = ../ZLIB/include/deflate.h; sourceTree = "<group>"; };
+		63BEAE5019096A4B00248862 /* gzguts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gzguts.h; path = ../ZLIB/include/gzguts.h; sourceTree = "<group>"; };
+		63BEAE5119096A4B00248862 /* inffast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inffast.h; path = ../ZLIB/include/inffast.h; sourceTree = "<group>"; };
+		63BEAE5219096A4B00248862 /* inffixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inffixed.h; path = ../ZLIB/include/inffixed.h; sourceTree = "<group>"; };
+		63BEAE5319096A4B00248862 /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inflate.h; path = ../ZLIB/include/inflate.h; sourceTree = "<group>"; };
+		63BEAE5419096A4B00248862 /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inftrees.h; path = ../ZLIB/include/inftrees.h; sourceTree = "<group>"; };
+		63BEAE5519096A4B00248862 /* trees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = trees.h; path = ../ZLIB/include/trees.h; sourceTree = "<group>"; };
+		63BEAE5619096A4B00248862 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zconf.h; path = ../ZLIB/include/zconf.h; sourceTree = "<group>"; };
+		63BEAE5719096A4B00248862 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ../ZLIB/include/zlib.h; sourceTree = "<group>"; };
+		63BEAE5819096A4B00248862 /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = ../ZLIB/include/zutil.h; sourceTree = "<group>"; };
+		63BEAE5919096A5300248862 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = ../ZLIB/source/adler32.c; sourceTree = "<group>"; };
+		63BEAE5A19096A5300248862 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = ../ZLIB/source/compress.c; sourceTree = "<group>"; };
+		63BEAE5B19096A5300248862 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crc32.c; path = ../ZLIB/source/crc32.c; sourceTree = "<group>"; };
+		63BEAE5C19096A5300248862 /* deflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = deflate.c; path = ../ZLIB/source/deflate.c; sourceTree = "<group>"; };
+		63BEAE5D19096A5300248862 /* gzclose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = gzclose.c; path = ../ZLIB/source/gzclose.c; sourceTree = "<group>"; };
+		63BEAE5E19096A5300248862 /* gzlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = gzlib.c; path = ../ZLIB/source/gzlib.c; sourceTree = "<group>"; };
+		63BEAE5F19096A5300248862 /* gzread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = gzread.c; path = ../ZLIB/source/gzread.c; sourceTree = "<group>"; };
+		63BEAE6019096A5300248862 /* gzwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = gzwrite.c; path = ../ZLIB/source/gzwrite.c; sourceTree = "<group>"; };
+		63BEAE6119096A5300248862 /* infback.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = infback.c; path = ../ZLIB/source/infback.c; sourceTree = "<group>"; };
+		63BEAE6219096A5300248862 /* inffast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inffast.c; path = ../ZLIB/source/inffast.c; sourceTree = "<group>"; };
+		63BEAE6319096A5300248862 /* inflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inflate.c; path = ../ZLIB/source/inflate.c; sourceTree = "<group>"; };
+		63BEAE6419096A5300248862 /* inftrees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inftrees.c; path = ../ZLIB/source/inftrees.c; sourceTree = "<group>"; };
+		63BEAE6519096A5300248862 /* trees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = trees.c; path = ../ZLIB/source/trees.c; sourceTree = "<group>"; };
+		63BEAE6619096A5300248862 /* uncompr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = uncompr.c; path = ../ZLIB/source/uncompr.c; sourceTree = "<group>"; };
+		63BEAE6719096A5300248862 /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zutil.c; path = ../ZLIB/source/zutil.c; sourceTree = "<group>"; };
+		63BEAE7719096AB500248862 /* libGLEW.1.10.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.10.0.dylib; path = ../GLEW/lib/libGLEW.1.10.0.dylib; sourceTree = "<group>"; };
+		63DFA5191909601D009A0C28 /* SDL-GL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "SDL-GL"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63DFA51F1909605A009A0C28 /* FileList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileList.cpp; path = ../source/FileList.cpp; sourceTree = "<group>"; };
+		63DFA5201909605A009A0C28 /* FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileSystem.cpp; path = ../source/FileSystem.cpp; sourceTree = "<group>"; };
+		63DFA52319096070009A0C28 /* FileArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileArchive.h; path = ../include/FileArchive.h; sourceTree = "<group>"; };
+		63DFA52419096070009A0C28 /* FileList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileList.h; path = ../include/FileList.h; sourceTree = "<group>"; };
+		63DFA52519096070009A0C28 /* FileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileSystem.h; path = ../include/FileSystem.h; sourceTree = "<group>"; };
+		63DFA52619096070009A0C28 /* PathUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathUtil.h; path = ../include/PathUtil.h; sourceTree = "<group>"; };
+		63DFA5271909607D009A0C28 /* bytePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bytePack.h; path = ../include/bytePack.h; sourceTree = "<group>"; };
+		63DFA5281909607D009A0C28 /* byteUnpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = byteUnpack.h; path = ../include/byteUnpack.h; sourceTree = "<group>"; };
+		63DFA5291909607D009A0C28 /* GL_Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GL_Context.h; path = ../include/GL_Context.h; sourceTree = "<group>"; };
+		63DFA52A1909607D009A0C28 /* os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = os.h; path = ../include/os.h; sourceTree = "<group>"; };
+		63DFA52B1909608B009A0C28 /* GL_Context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = GL_Context.c; path = ../source/GL_Context.c; sourceTree = "<group>"; };
+		63DFA52C1909608B009A0C28 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../source/main.cpp; sourceTree = "<group>"; };
+		63DFA52F19096093009A0C28 /* PathUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PathUtil.cpp; path = ../source/PathUtil.cpp; sourceTree = "<group>"; };
+		63DFA533190960AC009A0C28 /* ZipReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ZipReader.cpp; path = ../source/ZipReader.cpp; sourceTree = "<group>"; };
+		63DFA535190960B4009A0C28 /* ZipReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipReader.h; path = ../include/ZipReader.h; sourceTree = "<group>"; };
+		63DFA536190960C1009A0C28 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = File.cpp; path = ../source/File.cpp; sourceTree = "<group>"; };
+		63DFA537190960C1009A0C28 /* LimitReadFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LimitReadFile.cpp; path = ../source/LimitReadFile.cpp; sourceTree = "<group>"; };
+		63DFA538190960C1009A0C28 /* MemoryFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MemoryFile.cpp; path = ../source/MemoryFile.cpp; sourceTree = "<group>"; };
+		63DFA539190960C1009A0C28 /* ReadFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReadFile.cpp; path = ../source/ReadFile.cpp; sourceTree = "<group>"; };
+		63DFA53A190960C1009A0C28 /* WriteFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WriteFile.cpp; path = ../source/WriteFile.cpp; sourceTree = "<group>"; };
+		63DFA540190960C9009A0C28 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = File.h; path = ../include/File.h; sourceTree = "<group>"; };
+		63DFA541190960C9009A0C28 /* LimitReadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LimitReadFile.h; path = ../include/LimitReadFile.h; sourceTree = "<group>"; };
+		63DFA542190960C9009A0C28 /* MemoryFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryFile.h; path = ../include/MemoryFile.h; sourceTree = "<group>"; };
+		63DFA543190960C9009A0C28 /* ReadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReadFile.h; path = ../include/ReadFile.h; sourceTree = "<group>"; };
+		63DFA544190960C9009A0C28 /* WriteFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WriteFile.h; path = ../include/WriteFile.h; sourceTree = "<group>"; };
+		63DFA545190961D3009A0C28 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		63B7A70F1909600C00F56346 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63AE65BF19096DF900363FC2 /* SDL2.framework in Frameworks */,
+				6327D6DB19096C88002ADD5D /* OpenGL.framework in Frameworks */,
+				63BEAE4D1909625700248862 /* libGLEW.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		63B7A7091909600C00F56346 = {
+			isa = PBXGroup;
+			children = (
+				6327D6D919096C79002ADD5D /* GLUT.framework */,
+				6327D6D719096C4D002ADD5D /* SDL2.framework */,
+				63BEAE7719096AB500248862 /* libGLEW.1.10.0.dylib */,
+				63BEAE4A1909623100248862 /* SDL2.framework */,
+				63DFA545190961D3009A0C28 /* OpenGL.framework */,
+				63DFA51E19096045009A0C28 /* File System */,
+				63DFA51C19096038009A0C28 /* libraries */,
+				63DFA51B19096034009A0C28 /* source */,
+				63DFA51A1909602C009A0C28 /* include */,
+				63DFA5191909601D009A0C28 /* SDL-GL */,
+			);
+			sourceTree = "<group>";
+		};
+		63DFA51A1909602C009A0C28 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				63DFA5271909607D009A0C28 /* bytePack.h */,
+				63DFA5281909607D009A0C28 /* byteUnpack.h */,
+				63DFA5291909607D009A0C28 /* GL_Context.h */,
+				63DFA52A1909607D009A0C28 /* os.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		63DFA51B19096034009A0C28 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				63DFA52B1909608B009A0C28 /* GL_Context.c */,
+				63DFA52C1909608B009A0C28 /* main.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		63DFA51C19096038009A0C28 /* libraries */ = {
+			isa = PBXGroup;
+			children = (
+				63BEAE4C1909625700248862 /* libGLEW.a */,
+				63DFA51D19096040009A0C28 /* zlib */,
+			);
+			name = libraries;
+			sourceTree = "<group>";
+		};
+		63DFA51D19096040009A0C28 /* zlib */ = {
+			isa = PBXGroup;
+			children = (
+				63BEAE5919096A5300248862 /* adler32.c */,
+				63BEAE5A19096A5300248862 /* compress.c */,
+				63BEAE5B19096A5300248862 /* crc32.c */,
+				63BEAE5C19096A5300248862 /* deflate.c */,
+				63BEAE5D19096A5300248862 /* gzclose.c */,
+				63BEAE5E19096A5300248862 /* gzlib.c */,
+				63BEAE5F19096A5300248862 /* gzread.c */,
+				63BEAE6019096A5300248862 /* gzwrite.c */,
+				63BEAE6119096A5300248862 /* infback.c */,
+				63BEAE6219096A5300248862 /* inffast.c */,
+				63BEAE6319096A5300248862 /* inflate.c */,
+				63BEAE6419096A5300248862 /* inftrees.c */,
+				63BEAE6519096A5300248862 /* trees.c */,
+				63BEAE6619096A5300248862 /* uncompr.c */,
+				63BEAE6719096A5300248862 /* zutil.c */,
+				63BEAE4E19096A4B00248862 /* crc32.h */,
+				63BEAE4F19096A4B00248862 /* deflate.h */,
+				63BEAE5019096A4B00248862 /* gzguts.h */,
+				63BEAE5119096A4B00248862 /* inffast.h */,
+				63BEAE5219096A4B00248862 /* inffixed.h */,
+				63BEAE5319096A4B00248862 /* inflate.h */,
+				63BEAE5419096A4B00248862 /* inftrees.h */,
+				63BEAE5519096A4B00248862 /* trees.h */,
+				63BEAE5619096A4B00248862 /* zconf.h */,
+				63BEAE5719096A4B00248862 /* zlib.h */,
+				63BEAE5819096A4B00248862 /* zutil.h */,
+			);
+			name = zlib;
+			sourceTree = "<group>";
+		};
+		63DFA51E19096045009A0C28 /* File System */ = {
+			isa = PBXGroup;
+			children = (
+				63DFA532190960A1009A0C28 /* Archive */,
+				63DFA53119096099009A0C28 /* File */,
+				63DFA52419096070009A0C28 /* FileList.h */,
+				63DFA52519096070009A0C28 /* FileSystem.h */,
+				63DFA52619096070009A0C28 /* PathUtil.h */,
+				63DFA51F1909605A009A0C28 /* FileList.cpp */,
+				63DFA5201909605A009A0C28 /* FileSystem.cpp */,
+				63DFA52F19096093009A0C28 /* PathUtil.cpp */,
+			);
+			name = "File System";
+			sourceTree = "<group>";
+		};
+		63DFA53119096099009A0C28 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				63DFA540190960C9009A0C28 /* File.h */,
+				63DFA541190960C9009A0C28 /* LimitReadFile.h */,
+				63DFA542190960C9009A0C28 /* MemoryFile.h */,
+				63DFA543190960C9009A0C28 /* ReadFile.h */,
+				63DFA544190960C9009A0C28 /* WriteFile.h */,
+				63DFA536190960C1009A0C28 /* File.cpp */,
+				63DFA537190960C1009A0C28 /* LimitReadFile.cpp */,
+				63DFA538190960C1009A0C28 /* MemoryFile.cpp */,
+				63DFA539190960C1009A0C28 /* ReadFile.cpp */,
+				63DFA53A190960C1009A0C28 /* WriteFile.cpp */,
+			);
+			name = File;
+			sourceTree = "<group>";
+		};
+		63DFA532190960A1009A0C28 /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				63DFA52319096070009A0C28 /* FileArchive.h */,
+				63DFA535190960B4009A0C28 /* ZipReader.h */,
+				63DFA533190960AC009A0C28 /* ZipReader.cpp */,
+			);
+			name = Archive;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		63B7A7111909600C00F56346 /* SDL-GL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63B7A71B1909600C00F56346 /* Build configuration list for PBXNativeTarget "SDL-GL" */;
+			buildPhases = (
+				63B7A70E1909600C00F56346 /* Sources */,
+				63B7A70F1909600C00F56346 /* Frameworks */,
+				63B7A7101909600C00F56346 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SDL-GL";
+			productName = "SDL-GL";
+			productReference = 63DFA5191909601D009A0C28 /* SDL-GL */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		63B7A70A1909600C00F56346 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Felix Jones";
+			};
+			buildConfigurationList = 63B7A70D1909600C00F56346 /* Build configuration list for PBXProject "SDL-GL" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 63B7A7091909600C00F56346;
+			productRefGroup = 63B7A7091909600C00F56346;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				63B7A7111909600C00F56346 /* SDL-GL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		63B7A70E1909600C00F56346 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63BEAE6F19096A5300248862 /* gzwrite.c in Sources */,
+				63DFA5221909605A009A0C28 /* FileSystem.cpp in Sources */,
+				63BEAE7519096A5300248862 /* uncompr.c in Sources */,
+				63BEAE6C19096A5300248862 /* gzclose.c in Sources */,
+				63BEAE7419096A5300248862 /* trees.c in Sources */,
+				63BEAE6E19096A5300248862 /* gzread.c in Sources */,
+				63DFA52D1909608B009A0C28 /* GL_Context.c in Sources */,
+				63DFA52E1909608B009A0C28 /* main.cpp in Sources */,
+				63BEAE6919096A5300248862 /* compress.c in Sources */,
+				63DFA53F190960C1009A0C28 /* WriteFile.cpp in Sources */,
+				63BEAE7019096A5300248862 /* infback.c in Sources */,
+				63BEAE6A19096A5300248862 /* crc32.c in Sources */,
+				63BEAE7619096A5300248862 /* zutil.c in Sources */,
+				63DFA53019096093009A0C28 /* PathUtil.cpp in Sources */,
+				63BEAE7119096A5300248862 /* inffast.c in Sources */,
+				63DFA53D190960C1009A0C28 /* MemoryFile.cpp in Sources */,
+				63BEAE7319096A5300248862 /* inftrees.c in Sources */,
+				63DFA53E190960C1009A0C28 /* ReadFile.cpp in Sources */,
+				63DFA534190960AC009A0C28 /* ZipReader.cpp in Sources */,
+				63BEAE6B19096A5300248862 /* deflate.c in Sources */,
+				63DFA53C190960C1009A0C28 /* LimitReadFile.cpp in Sources */,
+				63BEAE7219096A5300248862 /* inflate.c in Sources */,
+				63BEAE6D19096A5300248862 /* gzlib.c in Sources */,
+				63DFA5211909605A009A0C28 /* FileList.cpp in Sources */,
+				63DFA53B190960C1009A0C28 /* File.cpp in Sources */,
+				63BEAE6819096A5300248862 /* adler32.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		63B7A7191909600C00F56346 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		63B7A71A1909600C00F56346 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		63B7A71C1909600C00F56346 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/felixjones/github/SDL-GL/SDL/lib",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../include/",
+					"$(SRCROOT)/../GLEW/include/",
+					"$(SRCROOT)/../SDL/include/",
+					"$(SRCROOT)/../ZLIB/include/",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/felixjones/github/SDL-GL/GLEW/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		63B7A71D1909600C00F56346 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/felixjones/github/SDL-GL/SDL/lib",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../include/",
+					"$(SRCROOT)/../GLEW/include/",
+					"$(SRCROOT)/../SDL/include/",
+					"$(SRCROOT)/../ZLIB/include/",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/felixjones/github/SDL-GL/GLEW/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		63B7A70D1909600C00F56346 /* Build configuration list for PBXProject "SDL-GL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63B7A7191909600C00F56346 /* Debug */,
+				63B7A71A1909600C00F56346 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63B7A71B1909600C00F56346 /* Build configuration list for PBXNativeTarget "SDL-GL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63B7A71C1909600C00F56346 /* Debug */,
+				63B7A71D1909600C00F56346 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 63B7A70A1909600C00F56346 /* Project object */;
+}

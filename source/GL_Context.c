@@ -268,23 +268,27 @@ int GLContext_OpenWindowWithAA( xiGLContext_t * const self, const int width, con
 		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
 		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, ( samples > 8 ? 8 : samples ) );
 
-		glEnable( GL_MULTISAMPLE );
-
-		glEnable( GL_LINE_SMOOTH );
-		glEnable( GL_POLYGON_SMOOTH );
-
 	} else {
 		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
 		SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
 
-		glDisable( GL_MULTISAMPLE );
-
-		glDisable( GL_LINE_SMOOTH );
-		glDisable( GL_POLYGON_SMOOTH );
-
 	}
 	
-	return GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
+	const int status = GLContext_OpenWindowWithFlags( self, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
+	
+	if ( samples ) {
+		glEnable( GL_MULTISAMPLE );
+		
+		glEnable( GL_LINE_SMOOTH );
+		glEnable( GL_POLYGON_SMOOTH );
+	} else {
+		glDisable( GL_MULTISAMPLE );
+		
+		glDisable( GL_LINE_SMOOTH );
+		glDisable( GL_POLYGON_SMOOTH );
+	}
+	
+	return status;
 }
 
 /*

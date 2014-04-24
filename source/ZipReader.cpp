@@ -8,7 +8,7 @@
 #include "zlib.h"
 
 #if defined( __POSIX__ )
-	#include <endian.h>
+	#include <machine/endian.h>
 #endif
 
 #define ZIP_INFO_IN_DATA_DESCRIPTOR	( ( int16_t )0x0008 )
@@ -99,7 +99,7 @@ bool xiZipLoader::IsLoadableReadFile( xiReadFile * const readFile ) const {
 	readFile->Read( &header.sig, sizeof( header.sig ) );
 
 #if defined( __POSIX__ )
-	header.sig = htole32( header.sig );
+	header.sig = ntohl( header.sig );
 #endif
 
 	return ( header.sig == 0x04034b50 ); // Zip
@@ -126,7 +126,7 @@ xiFileArchive * xiZipLoader::CreateArchiveFromReadFile( xiReadFile * const readF
 		readFile->Read( &sig, 2 );
 
 #if defined( __POSIX__ )
-		sig = htole16( sig );
+		sig = ntohs( sig );
 #endif
 		
 		readFile->Seek( 0 );
@@ -185,18 +185,17 @@ bool xiZipReader::ScanZipHeader( const bool ignoreGPBits ) {
 	readFile->Read( &entry.header, sizeof( zipFileHeader_t ) );
 
 #if defined( __POSIX__ )
-#error "Finish this"
-		entry.header.sig = htole32( entry.header.sig );
-		entry.header.versionToExtract = os::Byteswap::byteswap(entry.header.VersionToExtract);
-		entry.header.generalBitFlag = os::Byteswap::byteswap(entry.header.GeneralBitFlag);
-		entry.header.compressionMethod = os::Byteswap::byteswap(entry.header.CompressionMethod);
-		entry.header.lastModFileTime = os::Byteswap::byteswap(entry.header.LastModFileTime);
-		entry.header.lastModFileDate = os::Byteswap::byteswap(entry.header.LastModFileDate);
-		entry.header.dataDescriptor.CRC32 = os::Byteswap::byteswap(entry.header.DataDescriptor.CRC32);
-		entry.header.dataDescriptor.CompressedSize = os::Byteswap::byteswap(entry.header.DataDescriptor.CompressedSize);
-		entry.header.dataDescriptor.UncompressedSize = os::Byteswap::byteswap(entry.header.DataDescriptor.UncompressedSize);
-		entry.header.filenameLength = os::Byteswap::byteswap(entry.header.FilenameLength);
-		entry.header.extraFieldLength = os::Byteswap::byteswap(entry.header.ExtraFieldLength);
+	entry.header.sig = ntohl( entry.header.sig );
+	entry.header.versionToExtract = ntohs( entry.header.versionToExtract );
+	entry.header.generalBitFlag = ntohs( entry.header.generalBitFlag );
+	entry.header.compressionMethod = ntohs( entry.header.compressionMethod );
+	entry.header.lastModFileTime = ntohs( entry.header.lastModFileTime );
+	entry.header.lastModFileDate = ntohs( entry.header.lastModFileDate );
+	entry.header.dataDescriptor.crc32 = ntohl( entry.header.dataDescriptor.crc32 );
+	entry.header.dataDescriptor.compressedSize = ntohl( entry.header.dataDescriptor.compressedSize );
+	entry.header.dataDescriptor.uncompressedSize = ntohl( entry.header.dataDescriptor.uncompressedSize );
+	entry.header.fileNameLength = ntohs( entry.header.fileNameLength );
+	entry.header.extraFieldLength = ntohs( entry.header.extraFieldLength );
 #endif
 
 	if ( entry.header.sig != 0x04034b50 ) {
@@ -256,14 +255,13 @@ bool xiZipReader::ScanZipHeader( const bool ignoreGPBits ) {
 		readFile->Read( &dirEnd, sizeof( dirEnd ) );
 
 #if defined( __POSIX__ )
-#error "Finish this"
-		dirEnd.NumberDisk = os::Byteswap::byteswap(dirEnd.NumberDisk);
-		dirEnd.NumberStart = os::Byteswap::byteswap(dirEnd.NumberStart);
-		dirEnd.TotalDisk = os::Byteswap::byteswap(dirEnd.TotalDisk);
-		dirEnd.TotalEntries = os::Byteswap::byteswap(dirEnd.TotalEntries);
-		dirEnd.Size = os::Byteswap::byteswap(dirEnd.Size);
-		dirEnd.Offset = os::Byteswap::byteswap(dirEnd.Offset);
-		dirEnd.CommentLength = os::Byteswap::byteswap(dirEnd.CommentLength);
+		dirEnd.numberDisk = ntohs( dirEnd.numberDisk );
+		dirEnd.numberStart = ntohs( dirEnd.numberStart );
+		dirEnd.totalDisk = ntohs( dirEnd.totalDisk );
+		dirEnd.totalEntries = ntohs( dirEnd.totalEntries );
+		dirEnd.size = ntohl( dirEnd.size );
+		dirEnd.offset = ntohl( dirEnd.offset );
+		dirEnd.commentLength = ntohs( dirEnd.commentLength );
 #endif
 		zipFileEntry_t * const biggerEntries = ( zipFileEntry_t * )realloc( fileInfo.entries, sizeof( *fileInfo.entries ) * dirEnd.totalEntries );
 		if ( biggerEntries ) {
@@ -298,24 +296,23 @@ bool xiZipReader::ScanCentralDirectoryHeader() {
 	readFile->Read( &entry, sizeof( zipFileCentralDirFileHeader_t ) );
 	
 #if defined( __POSIX__ )
-#error "Finish this"
-	entry.Sig = os::Byteswap::byteswap(entry.Sig);
-	entry.VersionMadeBy = os::Byteswap::byteswap(entry.VersionMadeBy);
-	entry.VersionToExtract = os::Byteswap::byteswap(entry.VersionToExtract);
-	entry.GeneralBitFlag = os::Byteswap::byteswap(entry.GeneralBitFlag);
-	entry.CompressionMethod = os::Byteswap::byteswap(entry.CompressionMethod);
-	entry.LastModFileTime = os::Byteswap::byteswap(entry.LastModFileTime);
-	entry.LastModFileDate = os::Byteswap::byteswap(entry.LastModFileDate);
-	entry.CRC32 = os::Byteswap::byteswap(entry.CRC32);
-	entry.CompressedSize = os::Byteswap::byteswap(entry.CompressedSize);
-	entry.UncompressedSize = os::Byteswap::byteswap(entry.UncompressedSize);
-	entry.FilenameLength = os::Byteswap::byteswap(entry.FilenameLength);
-	entry.ExtraFieldLength = os::Byteswap::byteswap(entry.ExtraFieldLength);
-	entry.FileCommentLength = os::Byteswap::byteswap(entry.FileCommentLength);
-	entry.DiskNumberStart = os::Byteswap::byteswap(entry.DiskNumberStart);
-	entry.InternalFileAttributes = os::Byteswap::byteswap(entry.InternalFileAttributes);
-	entry.ExternalFileAttributes = os::Byteswap::byteswap(entry.ExternalFileAttributes);
-	entry.RelativeOffsetOfLocalHeader = os::Byteswap::byteswap(entry.RelativeOffsetOfLocalHeader);
+	entry.sig = ntohl( entry.sig );
+	entry.versionMadeBy = ntohs( entry.versionMadeBy );
+	entry.versionToExtract = ntohs( entry.versionToExtract );
+	entry.generalBitFlag = ntohs( entry.generalBitFlag );
+	entry.compressionMethod = ntohs( entry.compressionMethod );
+	entry.lastModFileTime = ntohs( entry.lastModFileTime );
+	entry.lastModFileDate = ntohs( entry.lastModFileDate );
+	entry.crc32 = ntohl( entry.crc32 );
+	entry.compressedSize = ntohl( entry.compressedSize );
+	entry.uncompressedSize = ntohl( entry.uncompressedSize );
+	entry.filenameLength = ntohs( entry.filenameLength );
+	entry.extraFieldLength = ntohs( entry.extraFieldLength );
+	entry.fileCommentLength = ntohs( entry.fileCommentLength );
+	entry.diskNumberStart = ntohs( entry.diskNumberStart );
+	entry.internalFileAttributes = ntohs( entry.internalFileAttributes );
+	entry.externalFileAttributes = ntohl( entry.externalFileAttributes );
+	entry.relativeOffsetOfLocalHeader = ntohl( entry.relativeOffsetOfLocalHeader );
 #endif
 
 	if ( entry.sig != 0x02014b50 ) {

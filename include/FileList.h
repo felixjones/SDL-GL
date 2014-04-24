@@ -2,6 +2,7 @@
 #define __FILE_LIST_H__
 
 #include <stdint.h>
+#include <stddef.h>
 
 #define PATH_LEN	( 240 )
 #define NAME_LEN	( 80 )

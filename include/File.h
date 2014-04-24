@@ -2,6 +2,7 @@
 #define __FILE_H__
 
 #include <stdint.h>
+#include <stddef.h>
 
 #define FILE_NAME_LEN	( 80 )
 

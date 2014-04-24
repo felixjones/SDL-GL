@@ -12,6 +12,10 @@
 	#include <io.h>
 	#include <direct.h>
 	#include <tchar.h>
+#elif defined( __POSIX__ )
+	#include <unistd.h>
+	#include <dirent.h>
+	#include <sys/stat.h>
 #endif
 
 #include "ZipReader.h"
@@ -381,7 +385,7 @@ const char * xiFileSystem::GetWorkingDirectory() {
 	_getcwd( workingDirectory, DIRECTORY_LEN );
 	PathUtil::UnixSlashes( &workingDirectory[0] );
 #elif defined( __POSIX__ )
-	#error "Deal with posix working directory"
+	getcwd( workingDirectory, DIRECTORY_LEN );
 #endif
 
 	return workingDirectory;
@@ -393,7 +397,7 @@ bool xiFileSystem::ChangeWorkingDirectoryTo( const char * const newDirectory ) {
 #if defined( __WIN_API__ )
 	success = ( _chdir( newDirectory ) == 0 );
 #elif defined( __POSIX__ )
-	#error "Deal with posix fs"
+	success = ( chdir( newDirectory ) == 0 );
 #endif
 
 	if ( success ) {
@@ -412,7 +416,11 @@ void xiFileSystem::GetAbsolutePath( char * const dest, const char * const source
 	PathUtil::SafeStrCopy( dest, p, PATH_LEN );
 	PathUtil::UnixSlashes( dest );
 #elif defined( __POSIX__ )
-	#error "Deal with posix fs"
+	char * p = 0;
+	char fpath[PATH_LEN];
+	p = realpath( source, fpath );
+	
+	PathUtil::SafeStrCopy( dest, p, PATH_LEN );
 #endif
 }
 
@@ -559,7 +567,38 @@ xiFileList * xiFileSystem::CreateFileList() {
 	}
 
 #elif defined( __POSIX__)
-	#error "Deal with it"
+	
+	r = new xiFileList( path, xiFileList::IGNORE_CASE );
+	
+	DIR * hFile = opendir( "." );
+	
+	struct dirent * c_file;
+	if ( ( c_file = readdir( hFile ) ), c_file ) {
+		do {
+			char rPath[PATH_LEN];
+			PathUtil::SafeStrCopy( &rPath[0], &path[0], PATH_LEN );
+			
+			const size_t rLen = strlen( rPath );
+			const size_t fileNameLen = c_file->d_namlen;
+			
+			size_t ii;
+			for ( ii = 0; ii < fileNameLen; ii++ ) {
+				if ( rLen + ii >= PATH_LEN ) {
+					break;
+				}
+				rPath[rLen + ii] = c_file->d_name[ii];
+			}
+			rPath[rLen + ii] = 0;
+			
+			struct stat statBuffer;
+			lstat( &rPath[0], &statBuffer );
+			
+			r->AddItem( &rPath[0], 0, ( size_t )statBuffer.st_size, ( rPath[rLen + ii -1 ] == '/' ? xiFileList::ITEM_DIRECTORY : xiFileList::ITEM_FILE ), 0);
+		} while( ( c_file = readdir( hFile ) ), c_file );
+		
+		closedir( hFile );
+	}
+	
 #endif
 
 	r->Retain();
@@ -584,5 +623,7 @@ bool xiFileSystem::DoesFileExist( const char * const fileName ) const {
 
 #if defined( __WIN_API__ )
 	return ( _access( fileName, 0 ) != -1 );
+#elif defined ( __POSIX__ )
+	return ( access( fileName, 0 ) != -1 );
 #endif
 }

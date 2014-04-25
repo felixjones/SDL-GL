@@ -5,10 +5,10 @@
 #include "GL_Vertex.h"
 
 xiGLVertex_t shape[] = {
-	{ { -0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
-	{ { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } },
-	{ { 0.5f, -0.5f, 0.5f }, { 0.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
-	{ { -0.5f, -0.5f, 0.5f }, { 0.0f, 0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+	{ { -0.5f, 0.5f, 0.5f }, {}, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { 0.5f, 0.5f, 0.5f }, {}, { 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { 0.5f, -0.5f, 0.5f }, {}, { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -0.5f, -0.5f, 0.5f }, {}, { 0.0f, 0.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
 };
 
 float points[] = {
@@ -62,7 +62,7 @@ int main( int argc, char ** argv ) {
 		glAttachShader( shaderProg, fs );
 		glLinkProgram( shaderProg );
 
-		glClearColor( 1.0, 0.0, 0.0, 1.0 );
+		glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
 		glClear( GL_COLOR_BUFFER_BIT );
 
 		GLuint vbo[2];
@@ -128,8 +128,8 @@ int main( int argc, char ** argv ) {
 			accel += context->deltaTime * dir * 2.0f;
 
 			if ( accel > 50.0f ) {
-				dir = -1.0f;
-			} else if ( accel < 0.0f ) {
+				dir = -2.0f;
+			} else if ( accel < -4.0f ) {
 				dir = 1.0f;
 			}
 

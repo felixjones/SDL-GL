@@ -20,12 +20,21 @@ void main() {
 	newUv = scaleMatrix * newUv;
 	newUv += vec2( 0.5 );
 	
-	if ( newUv.x > 1.0 || newUv.x < 0.0 ) {
-		discard;
-	} else if ( newUv.y > 1.0 || newUv.y < 0.0 ) {
+	if ( newUv.x <= 1.0 && newUv.x >= 0.0 && newUv.y <= 1.0 && newUv.y >= 0.0 ) {
+		
+		frame_colour = texture( textureSample, newUv );
+		
+		if ( frame_colour.a > 0.0 ) {
+		
+			frame_colour.rgb *= 2.0;
+			frame_colour *= glFragment_colour;
+			
+		} else {
+			//frame_colour = vec4( vec3( 0.0 ), 1.0 );
+			discard;
+		}
+	} else {
+		//frame_colour = vec4( vec3( 0.0 ), 1.0 );
 		discard;
 	}
-	
-    frame_colour = texture( textureSample, newUv );
-	frame_colour *= glFragment_colour;
 }

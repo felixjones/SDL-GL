@@ -4,13 +4,19 @@
 #if defined( __cplusplus )
 extern "C" {
 #endif
-
+	
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <stdint.h>
 #include "os.h"
 
 #if defined( __WIN_API__ ) && defined( __RELEASE__ )
+	#if defined( main )
+		#undef main
+	#endif
+
 	#if defined( __X32__ )
 		int __main( int argc, char ** argv );
 		

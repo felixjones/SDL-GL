@@ -2,13 +2,20 @@
 #include "PNG_Texture.h"
 #include "ReadFile.h"
 #include "Shader.h"
-#include "ShaderProg.h"
+#include "GL_Vertex.h"
+
+xiGLVertex_t shape[] = {
+	{ { -0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { 0.5f, -0.5f, 0.5f }, { 0.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -0.5f, -0.5f, 0.5f }, { 0.0f, 0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+};
 
 float points[] = {
-	-0.5f,  0.5f,  0.0f,
-	0.5f, 0.5f,  0.0f,
-	0.5f, -0.5f,  0.0f,
-	-0.5f, -0.5f,  0.0f
+	-0.5f,  0.5f,  0.0f,	0.0f, 1.0f,
+	0.5f, 0.5f,  0.0f,		1.0f, 1.0f,
+	0.5f, -0.5f,  0.0f,		1.0f, 0.0f,
+	-0.5f, -0.5f,  0.0f,	0.0f, 0.0f
 };
 
 float uvs[] = {
@@ -25,7 +32,7 @@ int main( int argc, char ** argv ) {
 		GLContext_SetWindowName( context, "OpenGL Test" );
 		GLContext_SetGLVersion( 3, 3 );
 		GLContext_OpenWindowWithAA( context, 800, 600, 8 );
-		//GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
+		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
 
 		xiShader * const shader = xiShader::Get();
 		
@@ -50,22 +57,22 @@ int main( int argc, char ** argv ) {
 		const GLuint vs = shader->Compile( "basic.vsh", xiShader::SHADER_VERTEX );
 		const GLuint fs = shader->Compile( "basic.fsh", xiShader::SHADER_FRAGMENT );
 		
-		xiShaderProg * const shaderProg = new xiShaderProg();
-		shaderProg->Attach( vs );
-		shaderProg->Attach( fs );
-		shaderProg->Link();
+		const int shaderProg = glCreateProgram();
+		glAttachShader( shaderProg, vs );
+		glAttachShader( shaderProg, fs );
+		glLinkProgram( shaderProg );
 
 		glClearColor( 1.0, 0.0, 0.0, 1.0 );
 		glClear( GL_COLOR_BUFFER_BIT );
 
 		GLuint vbo[2];
-		glGenBuffers( 2, &vbo[0] );
+		glGenBuffers( 1, &vbo[0] );
 		{
 			glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
-			glBufferData( GL_ARRAY_BUFFER, 12 * sizeof( float ), points, GL_STATIC_DRAW );
+			glBufferData( GL_ARRAY_BUFFER, 4 * sizeof( xiGLVertex_t ), shape, GL_STATIC_DRAW );
 
-			glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
-			glBufferData( GL_ARRAY_BUFFER, 8 * sizeof( float ), uvs, GL_STATIC_DRAW );
+			//glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
+			//glBufferData( GL_ARRAY_BUFFER, 8 * sizeof( float ), uvs, GL_STATIC_DRAW );
 		}
 		
 		GLuint vao;
@@ -74,20 +81,26 @@ int main( int argc, char ** argv ) {
 			glBindVertexArray( vao );
 		
 			glEnableVertexAttribArray( 0 );
-			glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
-			glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, 0 );
-		
 			glEnableVertexAttribArray( 1 );
-			glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
-			glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, 0, 0 );
+			glEnableVertexAttribArray( 2 );
+			glEnableVertexAttribArray( 3 );
+
+			// layoutLocation, elementCount, elementType, willNormalise, skipBytes, firstOffsetBytes
+
+			glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
+			GLVertex_SetupAttributes();
+			//glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, sizeof( float ) * 5, 0 );
+			//glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, sizeof( float ) * 5, ( void * )( sizeof( float ) * 3 ) );
+		
+			//glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
 		}
 				
 		GLuint textureID = PNGTexture_GLHandle( texture );
 
-		shaderProg->Use();
+		glUseProgram( shaderProg );
 
-		shaderProg->SetUniformInt( shaderProg->GetUniformLoc( "textureSample" ), 0 );
-		const int shadeLoc = shaderProg->GetUniformLoc( "shade" );
+		glProgramUniform1i( shaderProg, glGetUniformLocation( shaderProg, "textureSample" ), 0 );
+		const int shadeLoc = glGetUniformLocation( shaderProg, "shade" );
 
 		glActiveTexture( GL_TEXTURE0 );
 		glBindTexture( GL_TEXTURE_2D, textureID );
@@ -108,7 +121,6 @@ int main( int argc, char ** argv ) {
 			//glUseProgram( shaderProg );
 			//glBindVertexArray( vao );
 			glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
-
 			GLContext_SwapWindow( context );
 			GLContext_DrainEvents();
 
@@ -121,8 +133,10 @@ int main( int argc, char ** argv ) {
 				dir = 1.0f;
 			}
 
-			shaderProg->SetUniformFloat( shadeLoc, col );
+			glProgramUniform1f( shaderProg, shadeLoc, col );
 		}
+
+		glDeleteProgram( shaderProg );
 		
 		shader->Release();
 		PNGTexture_Release( texture );

@@ -2,7 +2,9 @@
 #define __OS_H__
 
 #if defined( _WIN32 ) || defined( _WIN64 ) || defined( WIN32 ) || defined( WIN64 )
-	#define __WINDOWS__
+	#if !defined( __WINDOWS__ )
+		#define __WINDOWS__
+	#endif
 
 	#if defined( _WIN64 ) || defined( WIN64 )
 		#define __X64__

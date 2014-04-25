@@ -1,20 +1,16 @@
 #version 330
 
-layout(location = 0) in vec3 vertexPos;
-layout(location = 1) in vec2 vertexUV;
+layout( location = 0 ) in vec3 glVertex_position;
+layout( location = 1 ) in vec3 glVertex_normal;
+layout( location = 2 ) in vec4 glVertex_colour;
+layout( location = 3 ) in vec2 glVertex_uv;
 
-uniform float	shade;
-
-out vec2 fragUV;
+out vec4 glFragment_colour;
+out vec2 glFragment_uv;
   
 void main() {
-    vec4 position = vec4( vertexPos, 1.0 );
+    gl_Position = vec4( glVertex_position, 1.0 );
 	
-	mat4 RotationMatrix = mat4( cos(shade), -sin(shade), 0.0, 0.0,
-                               sin(shade),  cos(shade), 0.0, 0.0,
-                               0.0,           0.0, 1.0, 0.0,
-                               0.0,           0.0, 0.0, 1.0 );
-    gl_Position = RotationMatrix * position;
-	
-    fragUV = vertexUV;
+    glFragment_uv = glVertex_uv;
+	glFragment_colour = glVertex_colour;
 }

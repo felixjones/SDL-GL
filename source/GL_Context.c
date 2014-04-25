@@ -1,7 +1,5 @@
 #include "GL_Context.h"
 
-#define SDL_MAIN_HANDLED
-#include <SDL.h>
 #include <string.h>
 
 #if defined( __DEBUG__ )

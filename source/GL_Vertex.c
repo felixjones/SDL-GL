@@ -3,19 +3,11 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-/*
-typedef struct xiGLVertex_s {
-	vec3_t	position;
-	vec3_t	normal;
-	vec4_t	colour;
-	vec2_t	uv;
-} xiGLVertex_t;
-*/
-static xiGLVertex_t	xiGLVertex;
+#define OFFSET_OF( X, Y )	( size_t )&( ( ( X * )0 )->Y )
 
 void GLVertex_SetupAttributes() {
-	glVertexAttribPointer( 0, VEC3, GL_FLOAT, GL_FALSE, sizeof( xiGLVertex ), 0 ); // POSITION
-	glVertexAttribPointer( 1, VEC3, GL_FLOAT, GL_FALSE, sizeof( xiGLVertex ), ( void * )( sizeof( xiGLVertex.position ) ) ); // NORMAL
-	glVertexAttribPointer( 2, VEC4, GL_FLOAT, GL_FALSE, sizeof( xiGLVertex ), ( void * )( sizeof( xiGLVertex.position ) + sizeof( xiGLVertex.normal ) ) ); // COLOUR
-	glVertexAttribPointer( 3, VEC2, GL_FLOAT, GL_FALSE, sizeof( xiGLVertex ), ( void * )( sizeof( xiGLVertex.position ) + sizeof( xiGLVertex.normal ) + sizeof( xiGLVertex.colour ) ) ); // UV
+	glVertexAttribPointer( 0, VEC3, GL_FLOAT, GL_FALSE, sizeof( xiGLVertex_t ), ( void * )( OFFSET_OF( xiGLVertex_t, position ) ) ); // POSITION
+	glVertexAttribPointer( 1, VEC3, GL_FLOAT, GL_FALSE, sizeof( xiGLVertex_t ), ( void * )( OFFSET_OF( xiGLVertex_t, normal ) ) ); // NORMAL
+	glVertexAttribPointer( 2, VEC4, GL_FLOAT, GL_FALSE, sizeof( xiGLVertex_t ), ( void * )( OFFSET_OF( xiGLVertex_t, colour ) ) ); // COLOUR
+	glVertexAttribPointer( 3, VEC2, GL_FLOAT, GL_FALSE, sizeof( xiGLVertex_t ), ( void * )( OFFSET_OF( xiGLVertex_t, uv ) ) ); // UV
 }

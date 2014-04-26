@@ -3,12 +3,13 @@
 #include "ReadFile.h"
 #include "Shader.h"
 #include "GL_Vertex.h"
+#include "FileSystem.h"
 
 xiGLVertex_t shape[] = {
-	{ { -0.5f, 0.5f, 0.5f }, {}, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
-	{ { 0.5f, 0.5f, 0.5f }, {}, { 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } },
-	{ { 0.5f, -0.5f, 0.5f }, {}, { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
-	{ { -0.5f, -0.5f, 0.5f }, {}, { 0.0f, 0.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+	{ { -0.75f, 0.75f, 0.0f }, {}, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { 0.75f, 0.75f, 0.0f }, {}, { 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { 0.75f, -0.75f, 0.0f }, {}, { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -0.75f, -0.75f, 0.0f }, {}, { 0.0f, 0.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
 };
 
 float points[] = {
@@ -31,14 +32,14 @@ int main( int argc, char ** argv ) {
 	if ( context ) {
 		GLContext_SetWindowName( context, "OpenGL Test" );
 		GLContext_SetGLVersion( 3, 3 );
-		GLContext_OpenWindowWithAA( context, 800, 600, 8 );
+		GLContext_OpenWindowWithAA( context, 640, 480, 8 );
 		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
 
 		xiShader * const shader = xiShader::Get();
 		
 		xiPNGTexture_t * const texture = PNGTexture_Alloc();
 
-		xiReadFile * const pngFile = xiReadFile::CreateReadFile( "image.png" );
+		xiReadFile * const pngFile = xiReadFile::CreateReadFile( "the_cage.png" );
 		if ( pngFile ) {
 			char * const pngBytes = new char[pngFile->GetSize()];
 			pngFile->Read( pngBytes, pngFile->GetSize() );
@@ -53,7 +54,34 @@ int main( int argc, char ** argv ) {
 
 			delete[]( pngBytes );
 		}
-		
+
+		xiFileSystem * const fis = xiFileSystem::Get();
+
+		/*fis->ChangeWorkingDirectoryTo( "shaders/" );
+		xiFileList * const fl = fis->CreateFileList();
+		if ( fis ) {
+			size_t count = fl->GetFileCount() - 1;
+			do {
+				const char * const fileName = fl->GetFileName( count );
+				const size_t fileNameLen = strlen( fileName );
+
+				xiShader::shaderType_e type;
+				if ( fileName[fileNameLen - 2] == 'v' ) {
+					type = xiShader::SHADER_VERTEX;
+				} else if ( fileName[fileNameLen - 2] == 'f' ) {
+					type = xiShader::SHADER_FRAGMENT;
+				} else {
+					continue;
+				}
+
+				shader->Compile( fileName, type );
+			} while ( count-- );
+
+			fis->Release();
+		}*/
+
+		fis->Release();
+
 		const GLuint vs = shader->Compile( "basic.vsh", xiShader::SHADER_VERTEX );
 		const GLuint fs = shader->Compile( "basic.fsh", xiShader::SHADER_FRAGMENT );
 		

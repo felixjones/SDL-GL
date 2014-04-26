@@ -57,18 +57,21 @@ int main( int argc, char ** argv ) {
 
 		xiFileSystem * const fis = xiFileSystem::Get();
 
-		/*fis->ChangeWorkingDirectoryTo( "shaders/" );
+		char currentDir[800];
+		memcpy( &currentDir[0], fis->GetWorkingDirectory(), strlen( fis->GetWorkingDirectory() ) + 1 );
+
+		fis->ChangeWorkingDirectoryTo( "shaders/" );
 		xiFileList * const fl = fis->CreateFileList();
-		if ( fis ) {
+		if ( fl ) {
 			size_t count = fl->GetFileCount() - 1;
 			do {
 				const char * const fileName = fl->GetFileName( count );
 				const size_t fileNameLen = strlen( fileName );
 
 				xiShader::shaderType_e type;
-				if ( fileName[fileNameLen - 2] == 'v' ) {
+				if ( fileName[fileNameLen - 3] == 'v' ) {
 					type = xiShader::SHADER_VERTEX;
-				} else if ( fileName[fileNameLen - 2] == 'f' ) {
+				} else if ( fileName[fileNameLen - 3] == 'f' ) {
 					type = xiShader::SHADER_FRAGMENT;
 				} else {
 					continue;
@@ -77,8 +80,9 @@ int main( int argc, char ** argv ) {
 				shader->Compile( fileName, type );
 			} while ( count-- );
 
-			fis->Release();
-		}*/
+			fl->Release();
+		}
+		fis->ChangeWorkingDirectoryTo( currentDir );
 
 		fis->Release();
 

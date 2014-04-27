@@ -1,6 +1,10 @@
 #ifndef __VECTOR_H__
 #define __VECTOR_H__
 
+#if defined( __cplusplus )
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 #define VEC2	( 2 )
@@ -89,5 +93,9 @@ int		Vector_GreaterThan( const void * const left, const void * const right, cons
 int		Vector_GreaterThanEqual( const void * const left, const void * const right, const size_t length );
 int		Vector_LessThan( const void * const left, const void * const right, const size_t length );
 int		Vector_LessThanEqual( const void * const left, const void * const right, const size_t length );
+
+#if defined( __cplusplus )
+}
+#endif
 
 #endif

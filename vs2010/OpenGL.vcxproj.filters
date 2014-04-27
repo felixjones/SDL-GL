@@ -31,6 +31,9 @@
     <Filter Include="Maths">
       <UniqueIdentifier>{5321538d-95a4-4fc4-9312-b2498bc7c6bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{a7f114a8-b21d-4812-9cb8-c3ebae133b2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\GL_Context.c">
@@ -174,6 +177,9 @@
     <ClCompile Include="..\source\GL_Vertex.c">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\objects\Object.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\os.h">
@@ -289,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="..\include\GL_Vertex.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\objects\Object.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

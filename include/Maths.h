@@ -1,6 +1,10 @@
 #ifndef __MATHS_H__
 #define __MATHS_H__
 
+#if defined( __cplusplus )
+extern "C" {
+#endif
+
 /*
 ================================================================================
 
@@ -35,5 +39,9 @@ float	Maths_ATan( const float arc );
 float	Maths_Pow( const float number, const float power );
 float	Maths_Exp( const float number );
 float	Maths_Log( const float number );
+
+#if defined( __cplusplus )
+}
+#endif
 
 #endif

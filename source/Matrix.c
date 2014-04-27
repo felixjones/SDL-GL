@@ -423,3 +423,45 @@ void Matrix_Identity( void * const matrix ) {
 	MAT4_CAST( matrix )->z.z = 1.0f;
 	MAT4_CAST( matrix )->w.w = 1.0f;
 }
+
+void Matrix_Scale(  void * const matrix, const void * const vector, const size_t length ) {
+	const vec3_t * const vecPtr = ( const vec3_t * )vector;
+
+	Matrix_Clear( matrix );
+		
+	MAT4_CAST( matrix )->w.w = 1.0f;
+
+	MAT4_CAST( matrix )->x.x = vecPtr->x;
+
+	if ( length >= MAT2 ) {
+		MAT4_CAST( matrix )->y.y = vecPtr->y;
+	} else {
+		MAT4_CAST( matrix )->y.y = 1.0f;
+	}
+	
+	if ( length >= MAT3 ) {
+		MAT4_CAST( matrix )->z.z = vecPtr->z;
+	} else {
+		MAT4_CAST( matrix )->z.z = 1.0f;
+	}
+}
+
+void Matrix_Translation(  void * const matrix, const void * const vector, const size_t length ) {
+	const vec3_t * const vecPtr = ( const vec3_t * )vector;
+
+	Matrix_Clear( matrix );
+	
+	MAT4_CAST( matrix )->x.x = 1.0f;
+	MAT4_CAST( matrix )->y.y = 1.0f;
+	MAT4_CAST( matrix )->z.z = 1.0f;
+	MAT4_CAST( matrix )->w.w = 1.0f;
+
+	if ( length == VEC2 ) {
+		MAT4_CAST( matrix )->z.x = vecPtr->x;
+		MAT4_CAST( matrix )->z.y = vecPtr->y;
+	} else if ( length > VEC2 ) {
+		MAT4_CAST( matrix )->w.x = vecPtr->x;
+		MAT4_CAST( matrix )->w.y = vecPtr->y;
+		MAT4_CAST( matrix )->w.z = vecPtr->z;
+	}
+}

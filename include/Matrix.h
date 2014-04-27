@@ -1,6 +1,10 @@
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
 
+#if defined( __cplusplus )
+extern "C" {
+#endif
+
 #include "Vector.h"
 
 #define MAT2	( 2 )
@@ -54,5 +58,11 @@ void	Matrix_Perspective( void * const matrix, const float fovDegree, const float
 void	Matrix_Orthographic( void * const matrix, const float left, const float right, const float bottom, const float top, const float near, const float far );
 void	Matrix_RotationDegree( void * const matrix, const void * const rotationVec, const size_t length );
 void	Matrix_Identity( void * const matrix );
+void	Matrix_Scale(  void * const matrix, const void * const vector, const size_t length );
+void	Matrix_Translation(  void * const matrix, const void * const vector, const size_t length );
+
+#if defined( __cplusplus )
+}
+#endif
 
 #endif

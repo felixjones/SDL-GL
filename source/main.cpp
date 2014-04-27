@@ -24,12 +24,40 @@ xiGLVertex_t cube[] = {
 	{ {  1.0f, -1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
 	{ { -1.0f, -1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
 	
-	{ {  1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
-	{ { -1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
-	{ { -1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-	{ {  1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
-	{ { -1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
-	{ {  1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } }
+	{ {  1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { -1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { -1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ {  1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { -1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ {  1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+	
+	{ {  1.0f, 1.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { -1.0f, 1.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { -1.0f, 1.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ {  1.0f, 1.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { -1.0f, 1.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ {  1.0f, 1.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+
+	{ { -1.0f, -1.0f,  1.0f }, { 0.0f, -1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ {  1.0f, -1.0f,  1.0f }, { 0.0f, -1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ {  1.0f, -1.0f, -1.0f }, { 0.0f, -1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -1.0f, -1.0f,  1.0f }, { 0.0f, -1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ {  1.0f, -1.0f, -1.0f }, { 0.0f, -1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -1.0f, -1.0f, -1.0f }, { 0.0f, -1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+	
+	{ { -1.0f,  1.0f,  1.0f }, { -1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { -1.0f, -1.0f,  1.0f }, { -1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { -1.0f, -1.0f, -1.0f }, { -1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -1.0f,  1.0f,  1.0f }, { -1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { -1.0f, -1.0f, -1.0f }, { -1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -1.0f,  1.0f, -1.0f }, { -1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+
+	{ { 1.0f, -1.0f,  1.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { 1.0f,  1.0f,  1.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { 1.0f,  1.0f, -1.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { 1.0f, -1.0f,  1.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { 1.0f,  1.0f, -1.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { 1.0f, -1.0f, -1.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } }
 };
 
 float points[] = {
@@ -52,14 +80,14 @@ int main( int argc, char ** argv ) {
 	if ( context ) {
 		GLContext_SetWindowName( context, "OpenGL Test" );
 		GLContext_SetGLVersion( 3, 3 );
-		GLContext_OpenFullScreenWithAA( context, 1920, 1080, 0 );
-		//GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
-
+		GLContext_OpenWindowWithAA( context, 640, 480, 4 );
+		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
+		
 		xiShader * const shader = xiShader::Get();
 		
 		xiPNGTexture_t * const texture = PNGTexture_Alloc();
 
-		xiReadFile * const pngFile = xiReadFile::CreateReadFile( "the_cage.png" );
+		xiReadFile * const pngFile = xiReadFile::CreateReadFile( "image.png" );
 		if ( pngFile ) {
 			char * const pngBytes = new char[pngFile->GetSize()];
 			pngFile->Read( pngBytes, pngFile->GetSize() );
@@ -93,18 +121,18 @@ int main( int argc, char ** argv ) {
 			glBufferData( GL_ARRAY_BUFFER, 4 * sizeof( xiGLVertex_t ), shape, GL_STATIC_DRAW );
 
 			glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
-			glBufferData( GL_ARRAY_BUFFER, 12 * sizeof( xiGLVertex_t ), cube, GL_STATIC_DRAW );
+			glBufferData( GL_ARRAY_BUFFER, 36 * sizeof( xiGLVertex_t ), cube, GL_STATIC_DRAW );
 		}
 		
 		GLuint vao;
 		{
 			glGenVertexArrays( 1, &vao );
 		
-			glBindVertexArray( vao );
-			glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
-			
 			//glBindVertexArray( vao );
-			//glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
+			//glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
+			
+			glBindVertexArray( vao );
+			glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
 			
 			glEnableVertexAttribArray( 0 );
 			glEnableVertexAttribArray( 1 );
@@ -130,9 +158,6 @@ int main( int argc, char ** argv ) {
 		glActiveTexture( GL_TEXTURE0 );
 		glBindTexture( GL_TEXTURE_2D, textureID );
 
-		glEnable( GL_BLEND );
-		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-		
 		glBindVertexArray( vao );
 
 		float col = 0.0f;
@@ -141,7 +166,7 @@ int main( int argc, char ** argv ) {
 		float dir = 1.0f;
 
 		mat4_t viewMatrix;
-		vec3_t eyePos = { 0.0f, 0.0f, -1.0f };
+		vec3_t eyePos = { 2.0f, 0.0f, -2.0f };
 		vec3_t targetPos = { 0.0f, 0.0f, 0.0f };
 
 		Matrix_LookAt( &viewMatrix, &eyePos, &targetPos, 0 );
@@ -154,39 +179,72 @@ int main( int argc, char ** argv ) {
 		};
 
 		mat4_t projectionMatrix;
-		Matrix_Perspective( &projectionMatrix, 90.0f, 640.0f / 480.0f, 0.1f, 100.0f );
-		//Matrix_Orthographic( &projectionMatrix, -1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f );
+		Matrix_Perspective( &projectionMatrix, 90.0f, 640.0f / 480.0f, 0.1f, 8.0f );
+		//Matrix_Orthographic( &projectionMatrix, -4.0f, 4.0f, -3.0f, 3.0f, 0.1f, 100.0f );
 
 		mat4_t viewProjectionMatrix;
 		Matrix_Mul( &viewProjectionMatrix, &viewMatrix, &projectionMatrix, MAT4 );
-
+		
+		glEnable( GL_BLEND );
+		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 		glEnable( GL_CULL_FACE );
 		glCullFace( GL_BACK );
-		glDisable( GL_CULL_FACE );
+		glEnable( GL_DEPTH_TEST );
 
 		while ( GLContext_Run( context ) ) {
-			Matrix_Identity( &modelMatrix );
-
-			mat3_t rotationMatrix;
-			vec3_t rotationVec = { col, col * 2.0f, col * 3.0f };
-			Matrix_RotationDegree( &rotationMatrix, &rotationVec, VEC3 );
-
-			Matrix_Mul( &modelMatrix, &rotationMatrix, &modelMatrix, MAT3 );
-
-			mat4_t modelViewProjectionMatrix;
-			Matrix_Mul( &modelViewProjectionMatrix, &modelMatrix, &viewProjectionMatrix, MAT4 );
-
-			glUniformMatrix4fv( matrixLoc, 1, GL_FALSE, ( const GLfloat * )&modelViewProjectionMatrix );
-
-			// wipe the drawing surface clear
 			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+			{
+				Matrix_Identity( &modelMatrix );
+
+				mat3_t rotationMatrix;
+				vec3_t rotationVec = { col, col * 2.0f, col * 3.0f };
+				Matrix_RotationDegree( &rotationMatrix, &rotationVec, VEC3 );
+				
+				mat3_t scaleMatrix;
+				vec3_t scaleVec = { 0.5f, 0.5f, 0.5f };
+				Matrix_Scale( &scaleMatrix, &scaleVec, VEC3 );
+				
+				mat4_t translationMatrix;
+				vec3_t translationVec = { 0.0f, 1.0f, 0.0f };
+				Matrix_Translation( &translationMatrix, &translationVec, VEC3 );
+				
+				Matrix_Mul( &modelMatrix, &translationMatrix, &modelMatrix, MAT4 );
+				Matrix_Mul( &modelMatrix, &rotationMatrix, &modelMatrix, MAT3 );
+				Matrix_Mul( &modelMatrix, &scaleMatrix, &modelMatrix, MAT4 );
+
+				mat4_t modelViewProjectionMatrix;
+				Matrix_Mul( &modelViewProjectionMatrix, &modelMatrix, &viewProjectionMatrix, MAT4 );
+
+				glUniformMatrix4fv( matrixLoc, 1, GL_FALSE, ( const GLfloat * )&modelViewProjectionMatrix );
+
+				// wipe the drawing surface clear
+
+				glDrawArrays( GL_TRIANGLES, 0, 36 );
+			}
+			
+			{
+				Matrix_Identity( &modelMatrix );
+
+				mat4_t translationMatrix;
+				vec3_t translationVec = { -2.0f, 0.0f, 0.0f };
+				Matrix_Translation( &translationMatrix, &translationVec, VEC3 );
+				
+				Matrix_Mul( &modelMatrix, &translationMatrix, &modelMatrix, MAT4 );
+
+				mat4_t modelViewProjectionMatrix;
+				Matrix_Mul( &modelViewProjectionMatrix, &modelMatrix, &viewProjectionMatrix, MAT4 );
+
+				glUniformMatrix4fv( matrixLoc, 1, GL_FALSE, ( const GLfloat * )&modelViewProjectionMatrix );
+
+				glDrawArrays( GL_TRIANGLES, 0, 36 );
+			}
 
 			//glUseProgram( shaderProg );
 			//glBindVertexArray( vao );
 
-			glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
-			//glDrawArrays( GL_TRIANGLES, 0, 12 );
-			
+			//glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
+
 			GLContext_SwapWindow( context );
 			GLContext_DrainEvents();
 

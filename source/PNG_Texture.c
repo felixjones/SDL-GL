@@ -178,8 +178,6 @@ xiPNGTexture_t * PNGTexture_Alloc() {
 
 		self->memory.isHeap = 1;
 		PNGTexture_Retain( self );
-
-		self->glHandle = -1;
 	}
 	
 	return self;

@@ -5,11 +5,31 @@
 #include "GL_Vertex.h"
 #include "FileSystem.h"
 
+extern "C" {
+	#include "Matrix.h"
+}
+
 xiGLVertex_t shape[] = {
 	{ { -0.75f, 0.75f, 0.0f }, {}, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f } },
 	{ { 0.75f, 0.75f, 0.0f }, {}, { 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f } },
 	{ { 0.75f, -0.75f, 0.0f }, {}, { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f } },
-	{ { -0.75f, -0.75f, 0.0f }, {}, { 0.0f, 0.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+	{ { -0.75f, -0.75f, 0.0f }, {}, { 0.0f, 0.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } }
+};
+
+xiGLVertex_t cube[] = {
+	{ { -1.0f,  1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ {  1.0f,  1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ {  1.0f, -1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -1.0f,  1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ {  1.0f, -1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } },
+	{ { -1.0f, -1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+	
+	{ {  1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { -1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f } },
+	{ { -1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+	{ {  1.0f,  1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f } },
+	{ { -1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f } },
+	{ {  1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f } }
 };
 
 float points[] = {
@@ -32,8 +52,8 @@ int main( int argc, char ** argv ) {
 	if ( context ) {
 		GLContext_SetWindowName( context, "OpenGL Test" );
 		GLContext_SetGLVersion( 3, 3 );
-		GLContext_OpenWindowWithAA( context, 640, 480, 8 );
-		GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
+		GLContext_OpenFullScreenWithAA( context, 1920, 1080, 0 );
+		//GLContext_SetVSync( VSYNC_ENABLE | VSYNC_DOUBLE_BUFFERED );
 
 		xiShader * const shader = xiShader::Get();
 		
@@ -54,41 +74,10 @@ int main( int argc, char ** argv ) {
 
 			delete[]( pngBytes );
 		}
-
-		xiFileSystem * const fis = xiFileSystem::Get();
-
-		char currentDir[800];
-		memcpy( &currentDir[0], fis->GetWorkingDirectory(), strlen( fis->GetWorkingDirectory() ) + 1 );
-
-		fis->ChangeWorkingDirectoryTo( "shaders/" );
-		xiFileList * const fl = fis->CreateFileList();
-		if ( fl ) {
-			size_t count = fl->GetFileCount() - 1;
-			do {
-				const char * const fileName = fl->GetFileName( count );
-				const size_t fileNameLen = strlen( fileName );
-
-				xiShader::shaderType_e type;
-				if ( fileName[fileNameLen - 3] == 'v' ) {
-					type = xiShader::SHADER_VERTEX;
-				} else if ( fileName[fileNameLen - 3] == 'f' ) {
-					type = xiShader::SHADER_FRAGMENT;
-				} else {
-					continue;
-				}
-
-				shader->Compile( fileName, type );
-			} while ( count-- );
-
-			fl->Release();
-		}
-		fis->ChangeWorkingDirectoryTo( currentDir );
-
-		fis->Release();
-
+		
 		const GLuint vs = shader->Compile( "basic.vsh", xiShader::SHADER_VERTEX );
 		const GLuint fs = shader->Compile( "basic.fsh", xiShader::SHADER_FRAGMENT );
-		
+
 		const int shaderProg = glCreateProgram();
 		glAttachShader( shaderProg, vs );
 		glAttachShader( shaderProg, fs );
@@ -98,29 +87,32 @@ int main( int argc, char ** argv ) {
 		glClear( GL_COLOR_BUFFER_BIT );
 
 		GLuint vbo[2];
-		glGenBuffers( 1, &vbo[0] );
+		glGenBuffers( 2, &vbo[0] );
 		{
 			glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
 			glBufferData( GL_ARRAY_BUFFER, 4 * sizeof( xiGLVertex_t ), shape, GL_STATIC_DRAW );
 
-			//glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
-			//glBufferData( GL_ARRAY_BUFFER, 8 * sizeof( float ), uvs, GL_STATIC_DRAW );
+			glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
+			glBufferData( GL_ARRAY_BUFFER, 12 * sizeof( xiGLVertex_t ), cube, GL_STATIC_DRAW );
 		}
 		
 		GLuint vao;
 		{
 			glGenVertexArrays( 1, &vao );
-			glBindVertexArray( vao );
 		
+			glBindVertexArray( vao );
+			glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
+			
+			//glBindVertexArray( vao );
+			//glBindBuffer( GL_ARRAY_BUFFER, vbo[1] );
+			
 			glEnableVertexAttribArray( 0 );
 			glEnableVertexAttribArray( 1 );
 			glEnableVertexAttribArray( 2 );
 			glEnableVertexAttribArray( 3 );
 
-			// layoutLocation, elementCount, elementType, willNormalise, skipBytes, firstOffsetBytes
-
-			glBindBuffer( GL_ARRAY_BUFFER, vbo[0] );
 			GLVertex_SetupAttributes();
+
 			//glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, sizeof( float ) * 5, 0 );
 			//glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, sizeof( float ) * 5, ( void * )( sizeof( float ) * 3 ) );
 		
@@ -133,6 +125,7 @@ int main( int argc, char ** argv ) {
 
 		glProgramUniform1i( shaderProg, glGetUniformLocation( shaderProg, "textureSample" ), 0 );
 		const int shadeLoc = glGetUniformLocation( shaderProg, "shade" );
+		const int matrixLoc = glGetUniformLocation( shaderProg, "uniform_matrix" );
 
 		glActiveTexture( GL_TEXTURE0 );
 		glBindTexture( GL_TEXTURE_2D, textureID );
@@ -147,12 +140,53 @@ int main( int argc, char ** argv ) {
 		float accel = 0.0f;
 		float dir = 1.0f;
 
+		mat4_t viewMatrix;
+		vec3_t eyePos = { 0.0f, 0.0f, -1.0f };
+		vec3_t targetPos = { 0.0f, 0.0f, 0.0f };
+
+		Matrix_LookAt( &viewMatrix, &eyePos, &targetPos, 0 );
+
+		mat4_t modelMatrix = {
+			{ 1.0f, 0.0f, 0.0f, 0.0f },
+			{ 0.0f, 1.0f, 0.0f, 0.0f },
+			{ 0.0f, 0.0f, 1.0f, 0.0f },
+			{ 0.0f, 0.0f, 0.0f, 1.0f }
+		};
+
+		mat4_t projectionMatrix;
+		Matrix_Perspective( &projectionMatrix, 90.0f, 640.0f / 480.0f, 0.1f, 100.0f );
+		//Matrix_Orthographic( &projectionMatrix, -1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f );
+
+		mat4_t viewProjectionMatrix;
+		Matrix_Mul( &viewProjectionMatrix, &viewMatrix, &projectionMatrix, MAT4 );
+
+		glEnable( GL_CULL_FACE );
+		glCullFace( GL_BACK );
+		glDisable( GL_CULL_FACE );
+
 		while ( GLContext_Run( context ) ) {
+			Matrix_Identity( &modelMatrix );
+
+			mat3_t rotationMatrix;
+			vec3_t rotationVec = { col, col * 2.0f, col * 3.0f };
+			Matrix_RotationDegree( &rotationMatrix, &rotationVec, VEC3 );
+
+			Matrix_Mul( &modelMatrix, &rotationMatrix, &modelMatrix, MAT3 );
+
+			mat4_t modelViewProjectionMatrix;
+			Matrix_Mul( &modelViewProjectionMatrix, &modelMatrix, &viewProjectionMatrix, MAT4 );
+
+			glUniformMatrix4fv( matrixLoc, 1, GL_FALSE, ( const GLfloat * )&modelViewProjectionMatrix );
+
 			// wipe the drawing surface clear
 			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
 			//glUseProgram( shaderProg );
 			//glBindVertexArray( vao );
+
 			glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
+			//glDrawArrays( GL_TRIANGLES, 0, 12 );
+			
 			GLContext_SwapWindow( context );
 			GLContext_DrainEvents();
 
@@ -165,7 +199,7 @@ int main( int argc, char ** argv ) {
 				dir = 1.0f;
 			}
 
-			glProgramUniform1f( shaderProg, shadeLoc, col );
+			glUniform1f( shadeLoc, col );
 		}
 
 		glDeleteProgram( shaderProg );

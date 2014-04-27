@@ -404,6 +404,8 @@ bool xiFileSystem::ChangeWorkingDirectoryTo( const char * const newDirectory ) {
 		PathUtil::SafeStrCopy( &workingDirectory[0], newDirectory, DIRECTORY_LEN );
 	}
 
+	GetWorkingDirectory();
+
 	return success;
 }
 

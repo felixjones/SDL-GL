@@ -187,25 +187,25 @@ xiShader::shader_t * xiShader::Shaders_Find( const char * const name ) {
 	if ( !shaders.ptr ) {
 		return nullptr;
 	}
-
+	
 	shader_t search;
 	strcpy( &search.name[0], name );
 
-	int32_t cursor = ( shaders.len >> 1 );
-	int32_t lastCursor = -1;
+	int32_t boundLeft = 0;
+	int32_t boundRight = shaders.len;
+	
+	while ( boundRight >= boundLeft ) {
+		const int32_t cursor = ( boundLeft + boundRight ) >> 1;
 
-	while ( cursor != lastCursor ) {
-		lastCursor = cursor;
-
-		const int dir = Shaders_Compare( &search, &shaders.ptr[cursor] );
+		const int dir = Shaders_Compare( &shaders.ptr[cursor], &search );
 		if ( dir == 0 ) {
 			return &shaders.ptr[cursor];
 		}
 
 		if ( dir < 0 ) {
-			cursor = ( cursor >> 1 );
+			boundLeft = cursor + 1;
 		} else if ( dir > 0 ) {
-			cursor = cursor + ( cursor >> 1 );
+			boundRight = cursor - 1;
 		}
 	}
 

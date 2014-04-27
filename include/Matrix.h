@@ -49,5 +49,10 @@ void	Matrix_ToFloatPtr( const void * const matrix, float * const floatPtr, const
 void	Matrix_Mul( void * const matrix, const void * const left, const void * const right, const size_t length );
 void	Matrix_Inverse( void * const matrix, const void * const input, const size_t length );
 float	Matrix_Determinant( const void * const matrix, const size_t length );
+void	Matrix_LookAt( void * const matrix, const void * const eyePos, const void * const target, const void * const up );
+void	Matrix_Perspective( void * const matrix, const float fovDegree, const float ratio, const float near, const float far );
+void	Matrix_Orthographic( void * const matrix, const float left, const float right, const float bottom, const float top, const float near, const float far );
+void	Matrix_RotationDegree( void * const matrix, const void * const rotationVec, const size_t length );
+void	Matrix_Identity( void * const matrix );
 
 #endif

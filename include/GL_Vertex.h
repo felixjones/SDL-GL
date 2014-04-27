@@ -8,8 +8,8 @@ extern "C" {
 #include "Vector.h"
 
 typedef struct xiGLVertex_s {
-	vec3_t	position;
-	vec3_t	normal;
+	vec4_t	position;
+	vec4_t	normal;
 	vec4_t	colour;
 	vec2_t	uv;
 } xiGLVertex_t;

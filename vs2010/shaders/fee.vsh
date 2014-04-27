@@ -7,12 +7,9 @@ layout( location = 3 ) in vec2 glVertex_uv;
 
 out vec4 glFragment_colour;
 out vec2 glFragment_uv;
-
-uniform mat4	uniform_matrix;
   
 void main() {
-    vec4 vertexPosition = vec4( glVertex_position, 1.0 );
-	gl_Position = uniform_matrix * vertexPosition;
+    gl_Position = vec4( glVertex_position, 1.0 );
 	
     glFragment_uv = glVertex_uv;
 	glFragment_colour = glVertex_colour;

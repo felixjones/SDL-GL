@@ -4,6 +4,10 @@
 #include <string.h>
 
 #define MAT4_CAST( X )	( ( mat4_t * )X )
+#define PI_180			( 0.01745329251f )
+#define PI_360			( 0.00872664625f )
+#define _180_PI			( 57.2957795131f )
+#define _360_PI			( 114.591559026f )
 
 /*
 ====================
@@ -61,7 +65,28 @@ void Matrix_Mul( void * const matrix, const void * const left, const void * cons
 		} while ( jj-- );
 	} while ( ii-- );
 	
-	memcpy( matrix, &resMat, sizeof( mat4_t ) );
+	if ( length >= MAT2 ) {
+		MAT4_CAST( matrix )->x.x = resMat.x.x;
+		MAT4_CAST( matrix )->x.y = resMat.x.y;
+		MAT4_CAST( matrix )->y.x = resMat.y.x;
+		MAT4_CAST( matrix )->y.y = resMat.y.y;
+	}
+	if ( length >= MAT3 ) {
+		MAT4_CAST( matrix )->x.z = resMat.x.z;
+		MAT4_CAST( matrix )->y.z = resMat.y.z;
+		MAT4_CAST( matrix )->z.x = resMat.z.x;
+		MAT4_CAST( matrix )->z.y = resMat.z.y;
+		MAT4_CAST( matrix )->z.z = resMat.z.z;
+	}
+	if ( length >= MAT4 ) {
+		MAT4_CAST( matrix )->x.w = resMat.x.w;
+		MAT4_CAST( matrix )->y.w = resMat.y.w;
+		MAT4_CAST( matrix )->z.w = resMat.z.w;
+		MAT4_CAST( matrix )->w.x = resMat.w.x;
+		MAT4_CAST( matrix )->w.y = resMat.w.y;
+		MAT4_CAST( matrix )->w.z = resMat.w.z;
+		MAT4_CAST( matrix )->w.w = resMat.w.w;
+	}
 }
 
 /*
@@ -276,4 +301,125 @@ void Matrix_Inverse( void * const matrix, const void * const input, const size_t
 		} while ( ii-- );
 
 	}
+}
+
+void Matrix_LookAt( void * const matrix, const void * const eyePos, const void * const target, const void * const up ) {
+	vec3_t xaxis;
+	vec3_t yaxis;
+	vec3_t zaxis;
+	vec3_t upVector;
+
+	if ( up ) {
+		memcpy( &upVector, up, sizeof( upVector ) );
+	} else {
+		upVector.x = 0.0f;
+		upVector.y = 1.0f;
+		upVector.z = 0.0f;
+	}
+
+	Vector_Sub( &zaxis, target, eyePos );
+	Vector_Normalise( &zaxis, &zaxis, VEC3 );
+
+	Vector_Cross( &xaxis, &upVector, &zaxis );
+	Vector_Normalise( &xaxis, &xaxis, VEC3 );
+	
+	Vector_Cross( &yaxis, &zaxis, &xaxis );
+
+	MAT4_CAST( matrix )->x.x = xaxis.x;
+	MAT4_CAST( matrix )->x.y = yaxis.x;
+	MAT4_CAST( matrix )->x.z = zaxis.x;
+	MAT4_CAST( matrix )->x.w = 0.0f;
+	
+	MAT4_CAST( matrix )->y.x = xaxis.y;
+	MAT4_CAST( matrix )->y.y = yaxis.y;
+	MAT4_CAST( matrix )->y.z = zaxis.y;
+	MAT4_CAST( matrix )->y.w = 0.0f;
+	
+	MAT4_CAST( matrix )->z.x = xaxis.z;
+	MAT4_CAST( matrix )->z.y = yaxis.z;
+	MAT4_CAST( matrix )->z.z = zaxis.z;
+	MAT4_CAST( matrix )->z.w = 0.0f;
+	
+	MAT4_CAST( matrix )->w.x = -Vector_Dot( &xaxis, eyePos, VEC3 );
+	MAT4_CAST( matrix )->w.y = -Vector_Dot( &yaxis, eyePos, VEC3 );
+	MAT4_CAST( matrix )->w.z = -Vector_Dot( &zaxis, eyePos, VEC3 );
+	MAT4_CAST( matrix )->w.w = 1.0f;
+}
+
+void Matrix_Perspective( void * const matrix, const float fovDegree, const float ratio, const float near, const float far ) {
+	const float size = near * Maths_Tan( fovDegree * PI_360 );
+	const float left = -size;
+	const float right = size;
+	const float bottom = -size / ratio;
+	const float top = size / ratio;
+
+	Matrix_Clear( matrix );
+	
+	MAT4_CAST( matrix )->x.x = 2.0f * near / ( right - left );
+	MAT4_CAST( matrix )->y.y = 2.0f * near / ( top - bottom );
+	MAT4_CAST( matrix )->z.z = far / ( far - near );
+	MAT4_CAST( matrix )->z.w = 1.0f;
+	
+	MAT4_CAST( matrix )->w.z = near * far / ( near - far );
+}
+
+void Matrix_Orthographic( void * const matrix, const float left, const float right, const float bottom, const float top, const float near, const float far ) {
+	Matrix_Clear( matrix );
+	
+	MAT4_CAST( matrix )->x.x = 2.0f / ( right - left );
+	MAT4_CAST( matrix )->y.y = 2.0f / ( top - bottom );
+	MAT4_CAST( matrix )->z.z = 1.0f / ( far - near );
+
+	MAT4_CAST( matrix )->w.z = near / ( near - far );
+	MAT4_CAST( matrix )->w.w = 1.0f;
+}
+
+void Matrix_RotationDegree( void * const matrix, const void * const rotationVec, const size_t length ) {
+	const vec3_t * const rotation = ( const vec3_t * )rotationVec;
+	const float xRad = DEG2RAD( rotation->x );
+	
+	const float cr = Maths_Cos( xRad );
+	const float sr = Maths_Sin( xRad );
+	float cp = 0.0f;
+	float sp = 0.0f;
+	float cy = 0.0f;
+	float sy = 0.0f;
+
+	if ( length >= VEC2 ) {
+		const float yRad = DEG2RAD( rotation->y );
+		cp = Maths_Cos( yRad );
+		sp = Maths_Sin( yRad );
+	}
+
+	if ( length >= VEC3 ) {
+		const float zRad = DEG2RAD( rotation->z );
+		cy = Maths_Cos( DEG2RAD( zRad ) );
+		sy = Maths_Sin( DEG2RAD( zRad ) );
+	}
+
+	{
+		const float srsp = sr * sp;
+		const float crsp = cr * sp;
+
+		MAT4_CAST( matrix )->x.x = cp * cy;
+		MAT4_CAST( matrix )->x.y = cp * sy;
+		MAT4_CAST( matrix )->x.z = -sp;
+
+		MAT4_CAST( matrix )->y.x = srsp * cy - cr * sy;
+		MAT4_CAST( matrix )->y.y = srsp * sy + cr * cy;
+		MAT4_CAST( matrix )->y.z = sr * cp;
+
+		MAT4_CAST( matrix )->z.x = crsp * cy + sr * sy;
+		MAT4_CAST( matrix )->z.y = crsp * sy - sr * cy;
+		MAT4_CAST( matrix )->z.z = cr * cp;
+	}
+}
+
+void Matrix_Identity( void * const matrix ) {
+	Matrix_Clear( matrix );
+	
+	MAT4_CAST( matrix )->x.x = 1.0f;
+	MAT4_CAST( matrix )->y.y = 1.0f;
+	MAT4_CAST( matrix )->z.z = 1.0f;
+	MAT4_CAST( matrix )->w.w = 1.0f;
 }

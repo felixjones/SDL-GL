@@ -7,9 +7,11 @@
 	#define inline __forceinline
 #endif
 
+#define USE_LOOKUP
+
 #define THREE_HALVES	( 1.5f )
 #define INV_SQRT		( 0x5f375a86 )
-#define LOOKUP_LEN		( 1024 )
+#define LOOKUP_LEN		( 3600 )
 #define INV_360			( 0.00277777777f )
 #define TINY_NUM		( 0.0000000000000001f )
 
@@ -104,11 +106,8 @@ TableIndex
 */
 inline static size_t TableIndex( const float radian ) {
 	size_t index = ( size_t )( RAD2DEG( radian ) * ( LOOKUP_LEN * INV_360 ) );
-	while ( index >= LOOKUP_LEN ) {
-		index -= LOOKUP_LEN;
-	}
-
-	return index;
+	
+	return index % LOOKUP_LEN;
 }
 
 /*
@@ -120,11 +119,8 @@ ArcIndex
 */
 inline static size_t ArcIndex( const float arc ) {
 	const size_t index = ( size_t )( ( arc + 1.0f ) * ( LOOKUP_LEN >> 1 ) );
-	if ( index == LOOKUP_LEN ) {
-		return 0;
-	}
-
-	return index;
+	
+	return index % LOOKUP_LEN;
 }
 
 /*
@@ -158,7 +154,11 @@ Maths_Sin
 ====================
 */
 float Maths_Sin( const float radian ) {
+#if defined( USE_LOOKUP )
 	return Trig( radian, TableIndex( radian ), TRIG_SIN, &sinTable[0] );
+#else
+	return sinf( radian );
+#endif
 }
 
 /*
@@ -169,7 +169,11 @@ Maths_Cos
 ====================
 */
 float Maths_Cos( const float radian ) {
+#if defined( USE_LOOKUP )
 	return Trig( radian, TableIndex( radian ), TRIG_COS, &cosTable[0] );
+#else
+	return cosf( radian );
+#endif
 }
 
 /*
@@ -180,7 +184,11 @@ Maths_Tan
 ====================
 */
 float Maths_Tan( const float radian ) {
+#if defined( USE_LOOKUP )
 	return Trig( radian, TableIndex( radian ), TRIG_TAN, &tanTable[0] );
+#else
+	return tanf( radian );
+#endif
 }
 
 /*
@@ -191,7 +199,11 @@ Maths_ASin
 ====================
 */
 float Maths_ASin( const float arc ) {
+#if defined( USE_LOOKUP )
 	return Trig( arc, ArcIndex( arc ), TRIG_ASIN, &asinTable[0] );
+#else
+	return asinf( arc );
+#endif
 }
 
 /*
@@ -202,7 +214,11 @@ Maths_ACos
 ====================
 */
 float Maths_ACos( const float arc ) {
+#if defined( USE_LOOKUP )
 	return Trig( arc, ArcIndex( arc ), TRIG_ACOS, &acosTable[0] );
+#else
+	return acosf( arc );
+#endif
 }
 
 /*
@@ -213,7 +229,11 @@ Maths_ATan
 ====================
 */
 float Maths_ATan( const float arc ) {
+#if defined( USE_LOOKUP )
 	return Trig( arc, ArcIndex( arc ), TRIG_ATAN, &atanTable[0] );
+#else
+	return atanf( arc );
+#endif
 }
 
 /*
